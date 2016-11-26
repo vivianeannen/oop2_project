@@ -17,6 +17,8 @@ public class BuildingsApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
 
+
+
     @Override public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Buildings");
@@ -26,6 +28,9 @@ public class BuildingsApp extends Application {
         showBuildingsOverview();
 
     }
+
+
+
 
     /**
      * Initializes the root layout.
@@ -76,5 +81,7 @@ public class BuildingsApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+
 
 }
