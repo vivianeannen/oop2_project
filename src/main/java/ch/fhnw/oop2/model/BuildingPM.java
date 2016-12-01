@@ -1,13 +1,16 @@
 package ch.fhnw.oop2.model;
 
 import java.net.URISyntaxException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.shape.Path;
+import javafx.fxml.FXML;
+//import javafx.scene.shape.Path;
+
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -49,6 +52,10 @@ public class BuildingPM {
     private ObservableList <BuildingPM> buildingsData = FXCollections.observableArrayList();
 
 
+    @FXML
+    private String iRank;
+
+
 
     public BuildingPM(String name, String city, double heightM, int floors, String architect, double cost, double longitude,
                       String county, double heightFT, int build, int rank, String achitectualStyle, String material, double latitude) {
@@ -67,24 +74,29 @@ public class BuildingPM {
         this.build = new SimpleIntegerProperty(build);
         this.rank = new SimpleIntegerProperty(rank);
 
+
+        buildingsData.setAll(readFromFile());
     }
 
 
 
 
-    private List<BuildingPM> readFromFile() { 
-        try (Stream<String> stream = getStreamOfLines(FILE_NAME, true)) { return stream.skip(1)
+    private List<BuildingPM> readFromFile() {
+        try (Stream<String> stream = getStreamOfLines(FILE_NAME, true)) {return stream.skip(1)
                 .map(s -> new BuildingPM(s.split(TAB)))
-                .collect(Collectors.toList());     } }
+                .collect(Collectors.toList());  }}
 
-    private Stream<String> getStreamOfLines(String fileName, boolean locatedInSameFolder) { try { 
-        return Files.lines(this.getPath(fileName, locatedInSameFolder), StandardCharsets.UTF_8); } catch (IOException e) { 
-        throw new IllegalStateException(e); } }
+    private Stream<String> getStreamOfLines(String fileName, boolean locatedInSameFolder) {try {
+        return Files.lines(this.getPath(fileName, locatedInSameFolder), StandardCharsets.UTF_8);
+    } catch (IOException e) {
+        throw new IllegalStateException(e);}}
 
-    private Path getPath(String filename, boolean locatedInSameFolder) { 
-        try { if (!locatedInSameFolder) { filename = "\\t" + filename; } 
-            return Paths.get(this.getClass().getResource(filename).toURI()); } catch (URISyntaxException e) { 
-            throw new IllegalArgumentException(e); } }
+    private Path getPath(String filename, boolean locatedInSameFolder) {
+        try {
+            if (!locatedInSameFolder) {filename = "\\t" + filename;}
+            return Paths.get(this.getClass().getResource(filename).toURI());
+            } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);}}
 
 
     public BuildingPM(String[] line) {
