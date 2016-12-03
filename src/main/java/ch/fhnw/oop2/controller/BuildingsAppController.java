@@ -5,6 +5,8 @@ import ch.fhnw.oop2.model.BuildingPM;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -55,7 +57,12 @@ public class BuildingsAppController implements Initializable {
     private Label lLatitude;
     @FXML
     private Label lRank;
-
+    @FXML
+    private Label laName;
+    @FXML
+    private Label laCity;
+    @FXML
+    private Label laHeightm;
 
 
     @Override
@@ -76,7 +83,7 @@ public class BuildingsAppController implements Initializable {
 
     }
 
-    private void showBuildingDetails(BuildingPM builing){
+    private void showBuildingDetails(BuildingPM builing) {
         if (builing != null) {
             // Fill the labels with info from the person object.
             lName.setText(builing.getName());
@@ -93,6 +100,9 @@ public class BuildingsAppController implements Initializable {
             lMaterial.setText(builing.getMaterlial());
             lLatitude.setText(builing.getLatitude());
             lRank.setText(builing.getRank());
+            laHeightm.setText(builing.getHeightM());
+            laCity.setText(builing.getCity());
+            laName.setText(builing.getName());
 
         } else {
             // Building is null, remove all the text.
@@ -110,16 +120,36 @@ public class BuildingsAppController implements Initializable {
             lMaterial.setText("");
             lLatitude.setText("");
             lRank.setText("");
+            laHeightm.setText("");
+            laName.setText("");
+            laCity.setText("");
         }
     }
 
 
-
-    public void setMain(BuildingsApp main){
-        this.main=main;
+    public void setMain(BuildingsApp main) {
+        this.main = main;
     }
 
     public void setBuildings(ObservableList<BuildingPM> buildingsData) {
         tvBuildings.setItems(buildingsData);
     }
-}
+
+
+    @FXML
+    private void handleDeleteBuilding() {
+        int selectedIndex = tvBuildings.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            tvBuildings.getItems().remove(selectedIndex);
+    } else {
+        // Nothing selected.
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.initOwner(BuildingsApp.getPrimaryStage());
+        alert.setTitle("No Selection");
+        alert.setHeaderText("No building Selected");
+        alert.setContentText("Please select a building in the table.");
+
+        alert.showAndWait();
+    }
+
+}}

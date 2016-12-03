@@ -32,7 +32,7 @@ import javafx.stage.Stage;
 public class BuildingsApp extends Application {
 
 
-    private Stage primaryStage;
+    private static Stage primaryStage;
     private BorderPane rootLayout;
 
     //Separate klass
@@ -109,7 +109,7 @@ public class BuildingsApp extends Application {
      *
      * @return
      */
-    public Stage getPrimaryStage() {
+    public static Stage getPrimaryStage() {
         return primaryStage;
     }
 
