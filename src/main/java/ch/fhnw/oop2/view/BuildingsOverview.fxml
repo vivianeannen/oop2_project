@@ -61,29 +61,29 @@
                     </rowConstraints>
                      <children>
                         <Label text="City" />
-                        <Label text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="lCity" text="Label" GridPane.columnIndex="1" />
                         <Label text="Country" GridPane.columnIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="3" />
+                        <Label fx:id="lcountry" text="Label" GridPane.columnIndex="3" />
                         <Label text="Height (m)" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lHeightm" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Height (ft)" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Label fx:id="lHeightft" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                         <Label text="Floors" GridPane.rowIndex="2" />
                         <Label text="Architect" GridPane.rowIndex="3" />
                         <Label text="Cost" GridPane.rowIndex="4" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="lFloors" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lAchitect" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lCost" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label text="Build" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                         <Label text="Architectual style" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <Label fx:id="lBuild" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Label fx:id="lArchitectual" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="3" />
                         <Label text="Material" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                        <Label fx:id="lMaterial" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                         <Label text="Longitude" GridPane.rowIndex="5" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label fx:id="lLongitude" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label text="Latitude" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                        <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                        <Label fx:id="lLatitude" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
                   <GridPane layoutX="5.0" layoutY="213.0" maxHeight="150.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
@@ -96,7 +96,7 @@
                     </rowConstraints>
                      <children>
                         <Label text="Name" />
-                        <Label prefHeight="17.0" prefWidth="30.0" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="lName" prefHeight="17.0" prefWidth="30.0" text="Label" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                   <ButtonBar buttonMinWidth="10.0" layoutX="175.0" layoutY="7.0" prefHeight="40.0" prefWidth="228.0">

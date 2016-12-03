@@ -5,6 +5,7 @@ import ch.fhnw.oop2.model.BuildingPM;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -26,6 +27,13 @@ public class BuildingsAppController implements Initializable {
     private TableColumn<BuildingPM, String> tcCity;
     @FXML
     private TableColumn<BuildingPM, String> tcRank;
+    @FXML
+    private Label lName;
+    @FXML
+    private Label lCity;
+    @FXML
+    private Label lHeightm;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,6 +42,30 @@ public class BuildingsAppController implements Initializable {
         tcCity.setCellValueFactory(cellData -> cellData.getValue().cityProperty());
 
         tcRank.setCellValueFactory(cellData -> cellData.getValue().rankProperty());
+
+    }
+
+    private void showBuildingDetails(BuildingPM builing){
+        if (builing != null) {
+            // Fill the labels with info from the person object.
+            lName.setText(builing.getName());
+            lastNameLabel.setText(person.getLastName());
+            streetLabel.setText(person.getStreet());
+            postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
+            cityLabel.setText(person.getCity());
+
+            // TODO: We need a way to convert the birthday into a String!
+            // birthdayLabel.setText(...);
+        } else {
+            // Person is null, remove all the text.
+            firstNameLabel.setText("");
+            lastNameLabel.setText("");
+            streetLabel.setText("");
+            postalCodeLabel.setText("");
+            cityLabel.setText("");
+            birthdayLabel.setText("");
+        }
+    }
 
     }
 

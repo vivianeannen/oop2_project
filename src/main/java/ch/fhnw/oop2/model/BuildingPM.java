@@ -34,60 +34,57 @@ public class BuildingPM {
 
     private StringProperty name = new SimpleStringProperty();
     private StringProperty city = new SimpleStringProperty();
-    private DoubleProperty heightM = new SimpleDoubleProperty();
-    private IntegerProperty floors = new SimpleIntegerProperty();
+    private StringProperty heightM = new SimpleStringProperty();
+    private StringProperty floors = new SimpleStringProperty();
     private StringProperty rank = new SimpleStringProperty();
     private StringProperty architect = new SimpleStringProperty();
-    private DoubleProperty cost = new SimpleDoubleProperty();
-    private DoubleProperty longitude = new SimpleDoubleProperty();
+    private StringProperty cost = new SimpleStringProperty();
+    private StringProperty longitude = new SimpleStringProperty();
     private StringProperty country = new SimpleStringProperty();
-    private DoubleProperty heightFT = new SimpleDoubleProperty();
-    private IntegerProperty build = new SimpleIntegerProperty();
+    private StringProperty heightFT = new SimpleStringProperty();
+    private StringProperty build = new SimpleStringProperty();
     private StringProperty achitectualStyle = new SimpleStringProperty();
     private StringProperty materlial = new SimpleStringProperty();
-    private DoubleProperty latitude = new SimpleDoubleProperty();
+    private StringProperty latitude = new SimpleStringProperty();
 
 
-    public BuildingPM(String name, String city, double heightM, int floors, String architect, double cost, double longitude,
-                      String county, double heightFT, int build, int rank, String achitectualStyle, String material, double latitude) {
-        // this.setName(name); so sollte es glaub sein
-      /*  this.name = new SimpleStringProperty(name);
+    public BuildingPM(String name, String city, String heightM,
+                      String floors, String rank, String architect, String cost,
+                      String longitude, String country, String heightFT, String build,
+                      String achitectualStyle, String material, String latitude) {
+        this.name = new SimpleStringProperty(name);
         this.city = new SimpleStringProperty(city);
+        this.heightM = new SimpleStringProperty(heightM);
+        this.floors = new SimpleStringProperty(floors);
+        this.rank = new SimpleStringProperty(rank);
         this.architect = new SimpleStringProperty(architect);
-        this.country = new SimpleStringProperty(county);
+        this.cost = new SimpleStringProperty(cost);
+        this.longitude = new SimpleStringProperty(longitude);
+        this.country = new SimpleStringProperty(country);
+        this.heightFT = new SimpleStringProperty(heightFT);
+        this.build = new SimpleStringProperty(build);
         this.achitectualStyle = new SimpleStringProperty(achitectualStyle);
         this.materlial = new SimpleStringProperty(material);
-        this.heightM = new SimpleDoubleProperty(heightM);
-        this.heightFT = new SimpleDoubleProperty(heightFT);
-        this.cost = new SimpleDoubleProperty(cost);
-        this.longitude = new SimpleDoubleProperty(longitude);
-        this.latitude = new SimpleDoubleProperty(latitude);
-        this.floors = new SimpleIntegerProperty(floors);
-        this.build = new SimpleIntegerProperty(build);
-        this.rank = new SimpleIntegerProperty(rank);
-
-*/
+        this.latitude = new SimpleStringProperty(latitude);
     }
-
 
     public BuildingPM(String[] line) {
         this.setRank(line[1]);
         this.setName(line[2]);
         this.setCity(line[3]);
         this.setCountry(line[4]);
-        this.setHeightM(Double.valueOf(line[5]));
-        this.setHeightFT(Double.valueOf(line[6]));
-        this.setFloors(Integer.valueOf(line[7]));
-        this.setBuild(Integer.valueOf(line[8]));
+        this.setHeightM(line[5]);
+        this.setHeightFT(line[6]);
+        this.setFloors(line[7]);
+        this.setBuild(line[8]);
         this.setArchitect(line[9]);
         this.setAchitectualStyle(line[10]);
-        this.setCost(Double.valueOf(line[11]));
+        this.setCost(line[11]);
         this.setMaterlial(line[12]);
-        this.setLongitude(Double.valueOf(line[13]));
-        this.setLatitude(Double.valueOf(line[14]));
+        this.setLongitude(line[13]);
+        this.setLatitude(line[14]);
 
     }
-
 
     public String getName() {
         return name.get();
@@ -113,28 +110,40 @@ public class BuildingPM {
         this.city.set(city);
     }
 
-    public double getHeightM() {
+    public String getHeightM() {
         return heightM.get();
     }
 
-    public DoubleProperty heightMProperty() {
+    public StringProperty heightMProperty() {
         return heightM;
     }
 
-    public void setHeightM(double heightM) {
+    public void setHeightM(String heightM) {
         this.heightM.set(heightM);
     }
 
-    public int getFloors() {
+    public String getFloors() {
         return floors.get();
     }
 
-    public IntegerProperty floorsProperty() {
+    public StringProperty floorsProperty() {
         return floors;
     }
 
-    public void setFloors(int floors) {
+    public void setFloors(String floors) {
         this.floors.set(floors);
+    }
+
+    public String getRank() {
+        return rank.get();
+    }
+
+    public StringProperty rankProperty() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank.set(rank);
     }
 
     public String getArchitect() {
@@ -149,27 +158,27 @@ public class BuildingPM {
         this.architect.set(architect);
     }
 
-    public double getCost() {
+    public String getCost() {
         return cost.get();
     }
 
-    public DoubleProperty costProperty() {
+    public StringProperty costProperty() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(String cost) {
         this.cost.set(cost);
     }
 
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude.get();
     }
 
-    public DoubleProperty longitudeProperty() {
+    public StringProperty longitudeProperty() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(String longitude) {
         this.longitude.set(longitude);
     }
 
@@ -185,27 +194,27 @@ public class BuildingPM {
         this.country.set(country);
     }
 
-    public double getHeightFT() {
+    public String getHeightFT() {
         return heightFT.get();
     }
 
-    public DoubleProperty heightFTProperty() {
+    public StringProperty heightFTProperty() {
         return heightFT;
     }
 
-    public void setHeightFT(double heightFT) {
+    public void setHeightFT(String heightFT) {
         this.heightFT.set(heightFT);
     }
 
-    public int getBuild() {
+    public String getBuild() {
         return build.get();
     }
 
-    public IntegerProperty buildProperty() {
+    public StringProperty buildProperty() {
         return build;
     }
 
-    public void setBuild(int build) {
+    public void setBuild(String build) {
         this.build.set(build);
     }
 
@@ -233,28 +242,18 @@ public class BuildingPM {
         this.materlial.set(materlial);
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude.get();
     }
 
-    public DoubleProperty latitudeProperty() {
+    public StringProperty latitudeProperty() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(String latitude) {
         this.latitude.set(latitude);
     }
 
 
-    public String getRank() {
-        return rank.get();
     }
 
-    public StringProperty rankProperty() {
-        return rank;
-    }
-
-    public void setRank(String rank) {
-        this.rank.set(rank);
-    }
-}
