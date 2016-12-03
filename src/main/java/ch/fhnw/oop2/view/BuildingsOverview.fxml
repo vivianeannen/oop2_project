@@ -32,7 +32,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Label layoutX="14.0" layoutY="14.0" text="Rang">
+                  <Label fx:id="lRank" layoutX="14.0" layoutY="14.0" text="Rank">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -63,7 +63,7 @@
                         <Label text="City" />
                         <Label fx:id="lCity" text="Label" GridPane.columnIndex="1" />
                         <Label text="Country" GridPane.columnIndex="2" />
-                        <Label fx:id="lcountry" text="Label" GridPane.columnIndex="3" />
+                        <Label fx:id="lCountry" text="Label" GridPane.columnIndex="3" />
                         <Label text="Height (m)" GridPane.rowIndex="1" />
                         <Label fx:id="lHeightm" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Height (ft)" GridPane.columnIndex="2" GridPane.rowIndex="1" />
@@ -72,7 +72,7 @@
                         <Label text="Architect" GridPane.rowIndex="3" />
                         <Label text="Cost" GridPane.rowIndex="4" />
                         <Label fx:id="lFloors" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="lAchitect" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lArchitect" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label fx:id="lCost" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label text="Build" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                         <Label text="Architectual style" GridPane.columnIndex="2" GridPane.rowIndex="3" />

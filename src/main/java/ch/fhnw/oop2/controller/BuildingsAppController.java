@@ -33,6 +33,29 @@ public class BuildingsAppController implements Initializable {
     private Label lCity;
     @FXML
     private Label lHeightm;
+    @FXML
+    private Label lFloors;
+    @FXML
+    private Label lArchitect;
+    @FXML
+    private Label lCost;
+    @FXML
+    private Label lLongitude;
+    @FXML
+    private Label lCountry;
+    @FXML
+    private Label lHeightft;
+    @FXML
+    private Label lBuild;
+    @FXML
+    private Label lArchitectual;
+    @FXML
+    private Label lMaterial;
+    @FXML
+    private Label lLatitude;
+    @FXML
+    private Label lRank;
+
 
 
     @Override
@@ -43,31 +66,54 @@ public class BuildingsAppController implements Initializable {
 
         tcRank.setCellValueFactory(cellData -> cellData.getValue().rankProperty());
 
+        // Clear buildings details.
+        showBuildingDetails(null);
+
+        // Listen for selection changes and show the builduings details when changed.
+        tvBuildings.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showBuildingDetails(newValue));
+
+
     }
 
     private void showBuildingDetails(BuildingPM builing){
         if (builing != null) {
             // Fill the labels with info from the person object.
             lName.setText(builing.getName());
-            lastNameLabel.setText(person.getLastName());
-            streetLabel.setText(person.getStreet());
-            postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
-            cityLabel.setText(person.getCity());
+            lCity.setText(builing.getCity());
+            lHeightm.setText(builing.getHeightM());
+            lFloors.setText(builing.getFloors());
+            lArchitect.setText(builing.getArchitect());
+            lCost.setText(builing.getCost());
+            lLongitude.setText(builing.getLongitude());
+            lCountry.setText(builing.getCountry());
+            lHeightft.setText(builing.getHeightFT());
+            lBuild.setText(builing.getBuild());
+            lArchitectual.setText(builing.getAchitectualStyle());
+            lMaterial.setText(builing.getMaterlial());
+            lLatitude.setText(builing.getLatitude());
+            lRank.setText(builing.getRank());
 
-            // TODO: We need a way to convert the birthday into a String!
-            // birthdayLabel.setText(...);
         } else {
-            // Person is null, remove all the text.
-            firstNameLabel.setText("");
-            lastNameLabel.setText("");
-            streetLabel.setText("");
-            postalCodeLabel.setText("");
-            cityLabel.setText("");
-            birthdayLabel.setText("");
+            // Building is null, remove all the text.
+            lName.setText("");
+            lCity.setText("");
+            lHeightm.setText("");
+            lFloors.setText("");
+            lArchitect.setText("");
+            lCost.setText("");
+            lLongitude.setText("");
+            lCountry.setText("");
+            lHeightft.setText("");
+            lBuild.setText("");
+            lArchitectual.setText("");
+            lMaterial.setText("");
+            lLatitude.setText("");
+            lRank.setText("");
         }
     }
 
-    }
+
 
     public void setMain(BuildingsApp main){
         this.main=main;

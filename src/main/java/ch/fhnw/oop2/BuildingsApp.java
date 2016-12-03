@@ -37,7 +37,6 @@ public class BuildingsApp extends Application {
 
     //Separate klass
     private static final String FILE_NAME = "buildings.csv";
-    private static final String TAB = "\\t";
 
 
     private final StringProperty applicationTitle = new SimpleStringProperty("Buildings");
