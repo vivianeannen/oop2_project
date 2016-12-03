@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 //import javafx.scene.shape.Path;
 
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.nio.file.Files;
@@ -22,44 +23,35 @@ import java.util.List;
 import java.nio.charset.StandardCharsets;
 
 
+
+// Alles muss String sein in einer Tabelle
+
 /**
  * Created by norinasteiner on 26.11.16.
  */
 public class BuildingPM {
 
 
-    private StringProperty name;
-    private StringProperty city;
-    private DoubleProperty heightM;
-    private IntegerProperty floors;
-    private IntegerProperty rank;
-    private StringProperty architect;
-    private DoubleProperty cost;
-    private DoubleProperty longitude;
-    private StringProperty country;
-    private DoubleProperty heightFT;
-    private IntegerProperty build;
-    private StringProperty achitectualStyle;
-    private StringProperty materlial;
-    private DoubleProperty latitude;
-
-    private static final String FILE_NAME = "buildings.csv";
-    private static final String TAB = "\\t";
-
-
-    private final StringProperty applicationTitle = new SimpleStringProperty("Buildings");
-
-    private ObservableList <BuildingPM> buildingsData = FXCollections.observableArrayList();
-
-
-    @FXML
-    private String iRank;
-
+    private StringProperty name = new SimpleStringProperty();
+    private StringProperty city = new SimpleStringProperty();
+    private DoubleProperty heightM = new SimpleDoubleProperty();
+    private IntegerProperty floors = new SimpleIntegerProperty();
+    private StringProperty rank = new SimpleStringProperty();
+    private StringProperty architect = new SimpleStringProperty();
+    private DoubleProperty cost = new SimpleDoubleProperty();
+    private DoubleProperty longitude = new SimpleDoubleProperty();
+    private StringProperty country = new SimpleStringProperty();
+    private DoubleProperty heightFT = new SimpleDoubleProperty();
+    private IntegerProperty build = new SimpleIntegerProperty();
+    private StringProperty achitectualStyle = new SimpleStringProperty();
+    private StringProperty materlial = new SimpleStringProperty();
+    private DoubleProperty latitude = new SimpleDoubleProperty();
 
 
     public BuildingPM(String name, String city, double heightM, int floors, String architect, double cost, double longitude,
                       String county, double heightFT, int build, int rank, String achitectualStyle, String material, double latitude) {
-        this.name = new SimpleStringProperty(name);
+        // this.setName(name); so sollte es glaub sein
+      /*  this.name = new SimpleStringProperty(name);
         this.city = new SimpleStringProperty(city);
         this.architect = new SimpleStringProperty(architect);
         this.country = new SimpleStringProperty(county);
@@ -74,54 +66,27 @@ public class BuildingPM {
         this.build = new SimpleIntegerProperty(build);
         this.rank = new SimpleIntegerProperty(rank);
 
-
-        buildingsData.setAll(readFromFile());
+*/
     }
-
-
-
-
-    private List<BuildingPM> readFromFile() {
-        try (Stream<String> stream = getStreamOfLines(FILE_NAME, true)) {return stream.skip(1)
-                .map(s -> new BuildingPM(s.split(TAB)))
-                .collect(Collectors.toList());  }}
-
-    private Stream<String> getStreamOfLines(String fileName, boolean locatedInSameFolder) {try {
-        return Files.lines(this.getPath(fileName, locatedInSameFolder), StandardCharsets.UTF_8);
-    } catch (IOException e) {
-        throw new IllegalStateException(e);}}
-
-    private Path getPath(String filename, boolean locatedInSameFolder) {
-        try {
-            if (!locatedInSameFolder) {filename = "\\t" + filename;}
-            return Paths.get(this.getClass().getResource(filename).toURI());
-            } catch (URISyntaxException e) {
-            throw new IllegalArgumentException(e);}}
 
 
     public BuildingPM(String[] line) {
-        this.setRank(Integer.valueOf(line[1]).intValue());
+        this.setRank(line[1]);
         this.setName(line[2]);
         this.setCity(line[3]);
         this.setCountry(line[4]);
-        this.setHeightM(Double.valueOf(line[5]).doubleValue());
-        this.setHeightFT(Double.valueOf(line[6]).doubleValue());
+        this.setHeightM(Double.valueOf(line[5]));
+        this.setHeightFT(Double.valueOf(line[6]));
         this.setFloors(Integer.valueOf(line[7]));
-        this.setBuild(Integer.valueOf(line[8]).intValue());
+        this.setBuild(Integer.valueOf(line[8]));
         this.setArchitect(line[9]);
         this.setAchitectualStyle(line[10]);
-        this.setCost(Double.valueOf(line[11]).doubleValue());
+        this.setCost(Double.valueOf(line[11]));
         this.setMaterlial(line[12]);
-        this.setLongitude(Double.valueOf(line[13]).doubleValue());
-        this.setLatitude(Double.valueOf(line[14]).doubleValue());
+        this.setLongitude(Double.valueOf(line[13]));
+        this.setLatitude(Double.valueOf(line[14]));
 
     }
-
-
-
-
-
-
 
 
     public String getName() {
@@ -281,43 +246,15 @@ public class BuildingPM {
     }
 
 
-    public int getRank() {
+    public String getRank() {
         return rank.get();
     }
 
-    public IntegerProperty rankProperty() {
+    public StringProperty rankProperty() {
         return rank;
     }
 
-    public void setRank(int rank) {
+    public void setRank(String rank) {
         this.rank.set(rank);
-    }
-
-    public static String getFileName() {
-        return FILE_NAME;
-    }
-
-    public static String getTAB() {
-        return TAB;
-    }
-
-    public String getApplicationTitle() {
-        return applicationTitle.get();
-    }
-
-    public StringProperty applicationTitleProperty() {
-        return applicationTitle;
-    }
-
-    public void setApplicationTitle(String applicationTitle) {
-        this.applicationTitle.set(applicationTitle);
-    }
-
-    public ObservableList<BuildingPM> getBuildingsData() {
-        return buildingsData;
-    }
-
-    public void setBuildingsData(ObservableList<BuildingPM> buildingsData) {
-        this.buildingsData = buildingsData;
     }
 }

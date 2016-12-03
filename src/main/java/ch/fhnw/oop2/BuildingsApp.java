@@ -3,13 +3,31 @@ package ch.fhnw.oop2;/**
  */
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import ch.fhnw.oop2.controller.BuildingsAppController;
+import ch.fhnw.oop2.model.BuildingPM;
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
+// main
 
 public class BuildingsApp extends Application {
 
@@ -17,9 +35,18 @@ public class BuildingsApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
 
+    //Separate klass
+    private static final String FILE_NAME = "buildings.csv";
+    private static final String TAB = "\\t";
 
 
-    @Override public void start(Stage primaryStage) {
+    private final StringProperty applicationTitle = new SimpleStringProperty("Buildings");
+
+    private ObservableList<BuildingPM> buildingsData = FXCollections.observableArrayList();
+
+
+    @Override
+    public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Buildings");
 
@@ -28,8 +55,6 @@ public class BuildingsApp extends Application {
         showBuildingsOverview();
 
     }
-
-
 
 
     /**
@@ -63,6 +88,18 @@ public class BuildingsApp extends Application {
 
             // Set buildings overview into the center of root layout.
             rootLayout.setCenter(buildingsOverview);
+
+
+            //Loading Data   --> separate Klass
+
+            buildingsData.setAll(readFromFile());
+
+
+            // Give the controller access to the timetable.
+            BuildingsAppController controller = loader.getController();
+            controller.setBuildings(buildingsData);
+            controller.setMain(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,4 +121,31 @@ public class BuildingsApp extends Application {
 
 
 
+    //put in separate class
+    private List<BuildingPM> readFromFile() {
+        try (Stream<String> stream = getStreamOfLines(FILE_NAME, true)) {
+            return stream.skip(1)
+                    .map(s -> new BuildingPM(s.split(";")))
+                    .collect(Collectors.toList());
+        }
+    }
+
+    private Stream<String> getStreamOfLines(String fileName, boolean locatedInSameFolder) {
+        try {
+            return Files.lines(this.getPath(fileName, locatedInSameFolder), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private Path getPath(String filename, boolean locatedInSameFolder) {
+        try {
+            if (!locatedInSameFolder) {
+                filename = ";" + filename;
+            }
+            return Paths.get(this.getClass().getResource(filename).toURI());
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 }
