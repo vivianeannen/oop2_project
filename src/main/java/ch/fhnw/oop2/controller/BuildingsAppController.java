@@ -11,6 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import javafx.event.ActionEvent;
+
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -137,7 +140,7 @@ public class BuildingsAppController implements Initializable {
 
 
     @FXML
-    private void handleDeleteBuilding() {
+    private void handleDeleteButton(ActionEvent event) {
         int selectedIndex = tvBuildings.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             tvBuildings.getItems().remove(selectedIndex);

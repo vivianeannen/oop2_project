@@ -83,7 +83,7 @@ public class BuildingsApp extends Application {
             // Load buildings overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(BuildingsApp.class.getResource("view/BuildingsOverview.fxml"));
-            AnchorPane buildingsOverview = (AnchorPane) loader.load();
+            BorderPane buildingsOverview = (BorderPane) loader.load();
 
             // Set buildings overview into the center of root layout.
             rootLayout.setCenter(buildingsOverview);
