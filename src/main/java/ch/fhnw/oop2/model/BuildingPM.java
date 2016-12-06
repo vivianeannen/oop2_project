@@ -47,6 +47,8 @@ public class BuildingPM {
     private StringProperty materlial = new SimpleStringProperty();
     private StringProperty latitude = new SimpleStringProperty();
 
+    public BuildingPM(){
+    }
 
     public BuildingPM(String name, String city, String heightM,
                       String floors, String rank, String architect, String cost,
@@ -253,7 +255,5 @@ public class BuildingPM {
     public void setLatitude(String latitude) {
         this.latitude.set(latitude);
     }
-
-
 }
 

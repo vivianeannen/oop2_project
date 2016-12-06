@@ -43,6 +43,8 @@ public class BuildingsApp extends Application {
 
     private ObservableList<BuildingPM> buildingsData = FXCollections.observableArrayList();
 
+    private BuildingPM buildingPM;
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -98,10 +100,15 @@ public class BuildingsApp extends Application {
             BuildingsAppController controller = loader.getController();
             controller.setBuildings(buildingsData);
             controller.setMain(this);
+            controller.setBuildingPM(buildingPM);
+
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+
     }
 
     /**
