@@ -129,24 +129,43 @@ public class BuildingsAppController implements Initializable {
         this.main = main;
 
 
-        buildingProxy.rankProperty().bindBidirectional(lRank.textProperty());
+
         buildingProxy.cityProperty().bindBidirectional(lCity.textProperty());
+        buildingProxy.nameProperty().bindBidirectional(lName.textProperty());
+        buildingProxy.nameProperty().bindBidirectional(laName.textProperty());
+        buildingProxy.buildProperty().bindBidirectional(lBuild.textProperty());
+        buildingProxy.cityProperty().bindBidirectional(laCity.textProperty());
+        buildingProxy.latitudeProperty().bindBidirectional(lLatitude.textProperty());
+        buildingProxy.longitudeProperty().bindBidirectional(lLongitude.textProperty());
+        buildingProxy.heightFTProperty().bindBidirectional(lHeightft.textProperty());
+        buildingProxy.heightMProperty().bindBidirectional(lHeightm.textProperty());
+        buildingProxy.heightMProperty().bindBidirectional(laHeightm.textProperty());
+        buildingProxy.countryProperty().bindBidirectional(lCountry.textProperty());
+        buildingProxy.materlialProperty().bindBidirectional(lMaterial.textProperty());
+        buildingProxy.floorsProperty().bindBidirectional(lFloors.textProperty());
+        buildingProxy.achitectualStyleProperty().bindBidirectional(lArchitectual.textProperty());
+        buildingProxy.architectProperty().bindBidirectional(lArchitect.textProperty());
+        buildingProxy.rankProperty().bindBidirectional(lRank.textProperty());
+        buildingProxy.costProperty().bindBidirectional(lCost.textProperty());
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     public void setBuildings(ObservableList<BuildingPM> buildingsData) {
         tvBuildings.setItems(buildingsData);
     }
 
-    //sets the person to be edited in the dialog.
 
-    public void setBuildingPM(BuildingPM buildingPM){
-        this.buildingPM = buildingPM;
-
-        laCity.textProperty().bind(lCity.textProperty());
-
-        //lCity.setText(buildingPM.getCity());
-
-    }
 
 
     @FXML
