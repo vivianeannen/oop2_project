@@ -41,31 +41,31 @@ public class BuildingsAppController implements Initializable {
     @FXML
     public TableColumn<BuildingPM, String> tcRank;
     @FXML
-    public Label lName;
+    public TextField lName;
     @FXML
     public TextField lCity;
     @FXML
-    public Label lHeightm;
+    public TextField lHeightm;
     @FXML
-    public Label lFloors;
+    public TextField lFloors;
     @FXML
-    public Label lArchitect;
+    public TextField lArchitect;
     @FXML
-    public Label lCost;
+    public TextField lCost;
     @FXML
-    public Label lLongitude;
+    public TextField lLongitude;
     @FXML
-    public Label lCountry;
+    public TextField lCountry;
     @FXML
-    public Label lHeightft;
+    public TextField lHeightft;
     @FXML
-    public Label lBuild;
+    public TextField lBuild;
     @FXML
-    public Label lArchitectual;
+    public TextField lArchitectual;
     @FXML
-    public Label lMaterial;
+    public TextField lMaterial;
     @FXML
-    public Label lLatitude;
+    public TextField lLatitude;
     @FXML
     public Label lRank;
     @FXML
