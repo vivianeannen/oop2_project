@@ -25,55 +25,55 @@ public class BuildingsAppController implements Initializable {
     public BuildingsApp main;
     private ResourceBundle bundle;
     private BuildingPM buildingPM;
-
+    private BuildingProxy buildingProxy = new BuildingProxy();
 
 
 
     //@FXML
 
     @FXML
-    private TableView<BuildingPM> tvBuildings;
+    public TableView<BuildingPM> tvBuildings;
 
     @FXML
-    private TableColumn<BuildingPM, String> tcName;
+    public TableColumn<BuildingPM, String> tcName;
     @FXML
-    private TableColumn<BuildingPM, String> tcCity;
+    public TableColumn<BuildingPM, String> tcCity;
     @FXML
-    private TableColumn<BuildingPM, String> tcRank;
+    public TableColumn<BuildingPM, String> tcRank;
     @FXML
-    private Label lName;
+    public Label lName;
     @FXML
-    private TextField lCity;
+    public TextField lCity;
     @FXML
-    private Label lHeightm;
+    public Label lHeightm;
     @FXML
-    private Label lFloors;
+    public Label lFloors;
     @FXML
-    private Label lArchitect;
+    public Label lArchitect;
     @FXML
-    private Label lCost;
+    public Label lCost;
     @FXML
-    private Label lLongitude;
+    public Label lLongitude;
     @FXML
-    private Label lCountry;
+    public Label lCountry;
     @FXML
-    private Label lHeightft;
+    public Label lHeightft;
     @FXML
-    private Label lBuild;
+    public Label lBuild;
     @FXML
-    private Label lArchitectual;
+    public Label lArchitectual;
     @FXML
-    private Label lMaterial;
+    public Label lMaterial;
     @FXML
-    private Label lLatitude;
+    public Label lLatitude;
     @FXML
-    private Label lRank;
+    public Label lRank;
     @FXML
-    private Label laName;
+    public Label laName;
     @FXML
-    private Label laCity;
+    public Label laCity;
     @FXML
-    private Label laHeightm;
+    public Label laHeightm;
 
 
     //***initialize***
@@ -88,7 +88,6 @@ public class BuildingsAppController implements Initializable {
 
         // Clear buildings details.
         showBuildingDetails(null);
-
         // Listen for selection changes and show the builduings details when changed.
         tvBuildings.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showBuildingDetails(newValue));
@@ -99,33 +98,9 @@ public class BuildingsAppController implements Initializable {
     //***methods***
     private void showBuildingDetails(BuildingPM building) {
         if (building != null) {
-            // Fill the labels with info from the person object.
-            lCity.textProperty().bindBidirectional(building.cityProperty());
-            lName.setText(building.getName());
-            lCity.setText(building.getCity());
-            lHeightm.setText(building.getHeightM());
-            lFloors.setText(building.getFloors());
-            lArchitect.setText(building.getArchitect());
-            lCost.setText(building.getCost());
-            lLongitude.setText(building.getLongitude());
-            lCountry.setText(building.getCountry());
-            lHeightft.setText(building.getHeightFT());
-            lBuild.setText(building.getBuild());
-            lArchitectual.setText(building.getAchitectualStyle());
-            lMaterial.setText(building.getMaterlial());
-            lLatitude.setText(building.getLatitude());
-            lRank.setText(building.getRank());
-            laHeightm.setText(building.getHeightM());
-            //laCity.setText(building.getCity());
-            laName.setText(building.getName());
-            //building.cityProperty().bind(lCity.textProperty());
-
-        }
-
-
-    else {
+            buildingProxy.set(building);
+        } else {
             // Building is null, remove all the text.
-
 
             lName.setText("");
             lCity.setText("");
@@ -152,6 +127,10 @@ public class BuildingsAppController implements Initializable {
 
     public void setMain(BuildingsApp main) {
         this.main = main;
+
+
+        buildingProxy.rankProperty().bindBidirectional(lRank.textProperty());
+        buildingProxy.cityProperty().bindBidirectional(lCity.textProperty());
     }
 
     public void setBuildings(ObservableList<BuildingPM> buildingsData) {
