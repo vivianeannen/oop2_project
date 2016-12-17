@@ -4,14 +4,17 @@ import ch.fhnw.oop2.BuildingsApp;
 import ch.fhnw.oop2.model.Building;
 import ch.fhnw.oop2.model.BuildingPM;
 import ch.fhnw.oop2.model.BuildingProxy;
+import ch.fhnw.oop2.util.JavaFxUtils;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.FileChooser;
 
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -177,8 +180,30 @@ public class BuildingsAppController implements Initializable {
 
 
 
+    @FXML
+    public void add(ActionEvent actionEvent) {
+        building.createnewBuilding();
+        tvBuildings.getSelectionModel().selectLast();
+        tvBuildings.scrollTo(tvBuildings.getItems().size() - 1);
+    }
 
 
+
+    @FXML
+    public void save(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        if (building.getFile() != null && !building.getFile().getAbsolutePath().endsWith(".csv")) {
+            fileChooser.setInitialFileName(building.getFile().getPath());
+        }
+        fileChooser.setTitle("Save File");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Json", "*.json"));
+        File f = fileChooser.showSaveDialog(main.getPrimaryStage());
+
+        String result = building.saveJSON(f);
+
+        JavaFxUtils.createTextboxAlert(bundle.getString("saved"), bundle.getString("exported"),
+                bundle.getString("expand"), result);
+    }
 
 
 }

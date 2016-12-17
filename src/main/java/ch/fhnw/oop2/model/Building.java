@@ -3,6 +3,7 @@ package ch.fhnw.oop2.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
@@ -64,6 +65,26 @@ public class Building {
     public void createnewBuilding() {
         buildingsData.addAll(new BuildingPM("", "", "", "", "", "", "","","","","","","",""));
 
+    }
+
+
+    private File file = null;
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public void load(File file) {
+        this.file = file;
+        if (file.getAbsolutePath().endsWith(".csv")) {
+            loadCSV(file);
+        } else {
+            loadJSON(file);
+        }
     }
 
 
