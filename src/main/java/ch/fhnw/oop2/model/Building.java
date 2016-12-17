@@ -68,24 +68,7 @@ public class Building {
     }
 
 
-    private File file = null;
 
-    public File getFile() {
-        return file;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
-    }
-
-    public void load(File file) {
-        this.file = file;
-        if (file.getAbsolutePath().endsWith(".csv")) {
-            loadCSV(file);
-        } else {
-            loadJSON(file);
-        }
-    }
 
 
 }

@@ -189,21 +189,7 @@ public class BuildingsAppController implements Initializable {
 
 
 
-    @FXML
-    public void save(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();
-        if (building.getFile() != null && !building.getFile().getAbsolutePath().endsWith(".csv")) {
-            fileChooser.setInitialFileName(building.getFile().getPath());
-        }
-        fileChooser.setTitle("Save File");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Json", "*.json"));
-        File f = fileChooser.showSaveDialog(main.getPrimaryStage());
 
-        String result = building.saveJSON(f);
-
-        JavaFxUtils.createTextboxAlert(bundle.getString("saved"), bundle.getString("exported"),
-                bundle.getString("expand"), result);
-    }
 
 
 }
