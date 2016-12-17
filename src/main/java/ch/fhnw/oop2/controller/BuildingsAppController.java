@@ -1,6 +1,7 @@
 package ch.fhnw.oop2.controller;
 
 import ch.fhnw.oop2.BuildingsApp;
+import ch.fhnw.oop2.model.Building;
 import ch.fhnw.oop2.model.BuildingPM;
 import ch.fhnw.oop2.model.BuildingProxy;
 import javafx.collections.ObservableList;
@@ -25,6 +26,7 @@ public class BuildingsAppController implements Initializable {
     private ResourceBundle bundle;
     private BuildingPM buildingPM;
     private BuildingProxy buildingProxy = new BuildingProxy();
+    private Building building;
 
 
     //@FXML
@@ -145,6 +147,8 @@ public class BuildingsAppController implements Initializable {
         buildingProxy.rankProperty().bindBidirectional(lRank.textProperty());
         buildingProxy.costProperty().bindBidirectional(lCost.textProperty());
 
+        this.building = main.getBuilding();
+
 
     }
 
@@ -173,13 +177,7 @@ public class BuildingsAppController implements Initializable {
 
 
 
-   // new Building
 
-    // new
-    public void createnewBuilding() {
-        tvBuildings.addAll(new BuildingPM("", "", "", "", "", "", "","","","","","","",""));
-
-    }
 
 
 

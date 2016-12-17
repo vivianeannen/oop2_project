@@ -58,4 +58,13 @@ public class Building {
     }
 
 
+    // new Building
+
+    // new
+    public void createnewBuilding() {
+        buildingsData.addAll(new BuildingPM("", "", "", "", "", "", "","","","","","","",""));
+
+    }
+
+
 }

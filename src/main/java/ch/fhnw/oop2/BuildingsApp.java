@@ -42,6 +42,8 @@ public class BuildingsApp extends Application {
 
     private final StringProperty applicationTitle = new SimpleStringProperty("Buildings");
 
+
+
     private Building building;
 
 
@@ -121,7 +123,9 @@ public class BuildingsApp extends Application {
 
 
 
-
+    public Building getBuilding() {
+        return building;
+    }
 
 
 
