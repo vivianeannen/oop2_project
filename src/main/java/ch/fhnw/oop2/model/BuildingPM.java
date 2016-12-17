@@ -1,26 +1,20 @@
 package ch.fhnw.oop2.model;
 
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
-
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 //import javafx.scene.shape.Path;
+import java.util.*;
+
+import java.io.*;
+import java.lang.reflect.Type;
 
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.nio.file.Files;
-import java.io.IOException;
-import java.util.List;
-
-
-import java.nio.charset.StandardCharsets;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.*;
+import javafx.collections.ObservableList;
+import java.lang.*;
+import java.*;
+import java.awt.*;
+import javafx.scene.control.Label;
 
 
 
@@ -43,8 +37,8 @@ public class BuildingPM {
     private StringProperty country = new SimpleStringProperty();
     private StringProperty heightFT = new SimpleStringProperty();
     private StringProperty build = new SimpleStringProperty();
-    private StringProperty achitectualStyle = new SimpleStringProperty();
-    private StringProperty materlial = new SimpleStringProperty();
+    private StringProperty architectualStyle = new SimpleStringProperty();
+    private StringProperty material = new SimpleStringProperty();
     private StringProperty latitude = new SimpleStringProperty();
 
     public BuildingPM(){
@@ -65,8 +59,8 @@ public class BuildingPM {
         this.country = new SimpleStringProperty(country);
         this.heightFT = new SimpleStringProperty(heightFT);
         this.build = new SimpleStringProperty(build);
-        this.achitectualStyle = new SimpleStringProperty(achitectualStyle);
-        this.materlial = new SimpleStringProperty(material);
+        this.architectualStyle = new SimpleStringProperty(achitectualStyle);
+        this.material = new SimpleStringProperty(material);
         this.latitude = new SimpleStringProperty(latitude);
     }
 
@@ -82,11 +76,17 @@ public class BuildingPM {
         this.setArchitect(line[9]);
         this.setAchitectualStyle(line[10]);
         this.setCost(line[11]);
-        this.setMaterlial(line[12]);
+        this.setMaterial(line[12]);
         this.setLongitude(line[13]);
         this.setLatitude(line[14]);
 
     }
+
+
+
+
+
+
 
     public String getName() {
         return name.get();
@@ -221,27 +221,27 @@ public class BuildingPM {
     }
 
     public String getAchitectualStyle() {
-        return achitectualStyle.get();
+        return architectualStyle.get();
     }
 
     public StringProperty achitectualStyleProperty() {
-        return achitectualStyle;
+        return architectualStyle;
     }
 
     public void setAchitectualStyle(String achitectualStyle) {
-        this.achitectualStyle.set(achitectualStyle);
+        this.architectualStyle.set(achitectualStyle);
     }
 
-    public String getMaterlial() {
-        return materlial.get();
+    public String getMaterial() {
+        return material.get();
     }
 
-    public StringProperty materlialProperty() {
-        return materlial;
+    public StringProperty materialProperty() {
+        return material;
     }
 
-    public void setMaterlial(String materlial) {
-        this.materlial.set(materlial);
+    public void setMaterial(String material) {
+        this.material.set(material);
     }
 
     public String getLatitude() {

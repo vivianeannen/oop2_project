@@ -6,10 +6,9 @@ import ch.fhnw.oop2.model.BuildingProxy;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-
-import javafx.event.ActionEvent;
 
 
 import java.net.URL;
@@ -26,7 +25,6 @@ public class BuildingsAppController implements Initializable {
     private ResourceBundle bundle;
     private BuildingPM buildingPM;
     private BuildingProxy buildingProxy = new BuildingProxy();
-
 
 
     //@FXML
@@ -129,7 +127,6 @@ public class BuildingsAppController implements Initializable {
         this.main = main;
 
 
-
         buildingProxy.cityProperty().bindBidirectional(lCity.textProperty());
         buildingProxy.nameProperty().bindBidirectional(lName.textProperty());
         buildingProxy.nameProperty().bindBidirectional(laName.textProperty());
@@ -141,22 +138,12 @@ public class BuildingsAppController implements Initializable {
         buildingProxy.heightMProperty().bindBidirectional(lHeightm.textProperty());
         buildingProxy.heightMProperty().bindBidirectional(laHeightm.textProperty());
         buildingProxy.countryProperty().bindBidirectional(lCountry.textProperty());
-        buildingProxy.materlialProperty().bindBidirectional(lMaterial.textProperty());
+        buildingProxy.materialProperty().bindBidirectional(lMaterial.textProperty());
         buildingProxy.floorsProperty().bindBidirectional(lFloors.textProperty());
         buildingProxy.achitectualStyleProperty().bindBidirectional(lArchitectual.textProperty());
         buildingProxy.architectProperty().bindBidirectional(lArchitect.textProperty());
         buildingProxy.rankProperty().bindBidirectional(lRank.textProperty());
         buildingProxy.costProperty().bindBidirectional(lCost.textProperty());
-
-
-
-
-
-
-
-
-
-
 
 
     }
@@ -166,22 +153,34 @@ public class BuildingsAppController implements Initializable {
     }
 
 
-
-
     @FXML
     private void handleDeleteButton(ActionEvent event) {
         int selectedIndex = tvBuildings.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             tvBuildings.getItems().remove(selectedIndex);
-    } else {
-        // Nothing selected.
-        Alert alert = new Alert(AlertType.WARNING);
-        alert.initOwner(BuildingsApp.getPrimaryStage());
-        alert.setTitle("No Selection");
-        alert.setHeaderText("No building Selected");
-        alert.setContentText("Please select a building in the table.");
+        } else {
+            // Nothing selected.
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(BuildingsApp.getPrimaryStage());
+            alert.setTitle("No Selection");
+            alert.setHeaderText("No building Selected");
+            alert.setContentText("Please select a building in the table.");
 
-        alert.showAndWait();
+            alert.showAndWait();
+        }
+
     }
 
-}}
+
+
+   // new Building
+
+    // new
+    public void createnewBuilding() {
+        tvBuildings.addAll(new BuildingPM("", "", "", "", "", "", "","","","","","","",""));
+
+    }
+
+
+
+}

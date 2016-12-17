@@ -1,7 +1,5 @@
 package ch.fhnw.oop2.model;
 
-import ch.fhnw.oop2.controller.BuildingsAppController;
-
 /**
  * Created by Viviane on 06.12.2016.
  */
@@ -24,7 +22,7 @@ public class BuildingProxy extends BuildingPM{
             latitudeProperty().unbindBidirectional(currentBuilding.latitudeProperty());
             countryProperty().unbindBidirectional(currentBuilding.countryProperty());
             buildProperty().unbindBidirectional(currentBuilding.buildProperty());
-            materlialProperty().unbindBidirectional(currentBuilding.materlialProperty());
+            materialProperty().unbindBidirectional(currentBuilding.materialProperty());
 
 
 
@@ -51,7 +49,7 @@ public class BuildingProxy extends BuildingPM{
             latitudeProperty().bindBidirectional(newBuildingPM.latitudeProperty());
             countryProperty().bindBidirectional(newBuildingPM.countryProperty());
             buildProperty().bindBidirectional(newBuildingPM.buildProperty());
-            materlialProperty().bindBidirectional(newBuildingPM.materlialProperty());
+            materialProperty().bindBidirectional(newBuildingPM.materialProperty());
 
 
 

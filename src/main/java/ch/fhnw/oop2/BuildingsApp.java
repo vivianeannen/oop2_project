@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import ch.fhnw.oop2.controller.BuildingsAppController;
+import ch.fhnw.oop2.model.Building;
 import ch.fhnw.oop2.model.BuildingPM;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -41,7 +42,8 @@ public class BuildingsApp extends Application {
 
     private final StringProperty applicationTitle = new SimpleStringProperty("Buildings");
 
-    private ObservableList<BuildingPM> buildingsData = FXCollections.observableArrayList();
+    private Building building;
+
 
 
     @Override
@@ -49,6 +51,7 @@ public class BuildingsApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Buildings");
 
+        building = new Building(FILE_NAME);
         initRootLayout();
 
         showBuildingsOverview();
@@ -89,14 +92,12 @@ public class BuildingsApp extends Application {
             rootLayout.setCenter(buildingsOverview);
 
 
-            //Loading Data   --> separate Klass
 
-            buildingsData.setAll(readFromFile());
 
 
             // Give the controller access to the timetable.
             BuildingsAppController controller = loader.getController();
-            controller.setBuildings(buildingsData);
+            controller.setBuildings(building.getBuildingsData());
             controller.setMain(this);
 
         } catch (IOException e) {
@@ -120,31 +121,9 @@ public class BuildingsApp extends Application {
 
 
 
-    //put in separate class
-    private List<BuildingPM> readFromFile() {
-        try (Stream<String> stream = getStreamOfLines(FILE_NAME, true)) {
-            return stream.skip(1)
-                    .map(s -> new BuildingPM(s.split(";")))
-                    .collect(Collectors.toList());
-        }
-    }
 
-    private Stream<String> getStreamOfLines(String fileName, boolean locatedInSameFolder) {
-        try {
-            return Files.lines(this.getPath(fileName, locatedInSameFolder), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
-    }
 
-    private Path getPath(String filename, boolean locatedInSameFolder) {
-        try {
-            if (!locatedInSameFolder) {
-                filename = ";" + filename;
-            }
-            return Paths.get(this.getClass().getResource(filename).toURI());
-        } catch (URISyntaxException e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
+
+
+
 }
