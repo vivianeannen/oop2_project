@@ -17,10 +17,11 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Optional;
 
-// TODO: Auto-generated Javadoc
+
 
 /**
  * The Class JavaFxUtils.
+ * @author Matthias Ernst
  */
 public class JavaFxUtils {
 

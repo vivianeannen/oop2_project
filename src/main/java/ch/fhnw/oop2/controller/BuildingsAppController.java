@@ -1,9 +1,11 @@
 package ch.fhnw.oop2.controller;
 
 import ch.fhnw.oop2.BuildingsApp;
-import ch.fhnw.oop2.model.Building;
+import ch.fhnw.oop2.model.Buildings;
 import ch.fhnw.oop2.model.BuildingPM;
 import ch.fhnw.oop2.model.BuildingProxy;
+import ch.fhnw.oop2.util.JavaFxUtils;
+import ch.fhnw.oop2.util.Utils;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,8 +17,10 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.ResourceBundle;
-
 
 import static ch.fhnw.oop2.BuildingsApp.FILE_NAME;
 
@@ -31,60 +35,36 @@ public class BuildingsAppController implements Initializable {
     private ResourceBundle bundle;
     private BuildingPM buildingPM;
     private BuildingProxy buildingProxy = new BuildingProxy();
-    private Building building;
-
+    private Buildings buildings;
 
     //@FXML
 
-    @FXML
-    public TableView<BuildingPM> tvBuildings;
+    @FXML public TableView<BuildingPM> tvBuildings;
 
-    @FXML
-    public TableColumn<BuildingPM, String> tcName;
-    @FXML
-    public TableColumn<BuildingPM, String> tcCity;
-    @FXML
-    public TableColumn<BuildingPM, String> tcRank;
-    @FXML
-    public TextField lName;
-    @FXML
-    public TextField lCity;
-    @FXML
-    public TextField lHeightm;
-    @FXML
-    public TextField lFloors;
-    @FXML
-    public TextField lArchitect;
-    @FXML
-    public TextField lCost;
-    @FXML
-    public TextField lLongitude;
-    @FXML
-    public TextField lCountry;
-    @FXML
-    public TextField lHeightft;
-    @FXML
-    public TextField lBuild;
-    @FXML
-    public TextField lArchitectual;
-    @FXML
-    public TextField lMaterial;
-    @FXML
-    public TextField lLatitude;
-    @FXML
-    public Label lRank;
-    @FXML
-    public Label laName;
-    @FXML
-    public Label laCity;
-    @FXML
-    public Label laHeightm;
-
+    @FXML public TableColumn<BuildingPM, String> tcName;
+    @FXML public TableColumn<BuildingPM, String> tcCity;
+    @FXML public TableColumn<BuildingPM, String> tcRank;
+    @FXML public TextField lName;
+    @FXML public TextField lCity;
+    @FXML public TextField lHeightm;
+    @FXML public TextField lFloors;
+    @FXML public TextField lArchitect;
+    @FXML public TextField lCost;
+    @FXML public TextField lLongitude;
+    @FXML public TextField lCountry;
+    @FXML public TextField lHeightft;
+    @FXML public TextField lBuild;
+    @FXML public TextField lArchitectual;
+    @FXML public TextField lMaterial;
+    @FXML public TextField lLatitude;
+    @FXML public Label lRank;
+    @FXML public Label laName;
+    @FXML public Label laCity;
+    @FXML public Label laHeightm;
 
     //***initialize***
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @Override public void initialize(URL location, ResourceBundle resources) {
         tcName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
 
         tcCity.setCellValueFactory(cellData -> cellData.getValue().cityProperty());
@@ -93,19 +73,45 @@ public class BuildingsAppController implements Initializable {
 
         // Clear buildings details.
         showBuildingDetails(null);
-        // Listen for selection changes and show the builduings details when changed.
-        tvBuildings.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showBuildingDetails(newValue));
+        // Listen for selection changes and show the buildings details when changed.
+        tvBuildings.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            showBuildingDetails(newValue);
+            setRanking(buildings);
+        });
 
+        lHeightm.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (edited == false && !newValue.isEmpty()) {
+                edited = true;
+                String newHeight = Double.toString(Utils.meterToFoot(Double.valueOf(newValue)));
+                lHeightft.textProperty().setValue(newHeight);
+                edited = false;
+            }
+        });
 
+        lHeightft.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (edited == false && !newValue.isEmpty()) {
+                edited = true;
+                String newHeight = Double.toString(Utils.footToMeter(Double.valueOf(newValue)));
+                lHeightm.textProperty().setValue(newHeight);
+                edited = false;
+            }
+        });
+        JavaFxUtils.addFilter_OnlyNumbers(lHeightm);
+        JavaFxUtils.addFilter_OnlyNumbers(lHeightft);
     }
+
+    static boolean edited = false;
 
     //***methods***
     private void showBuildingDetails(BuildingPM building) {
-        if (building != null) {
+        if (building != null)
+
+        {
             buildingProxy.set(building);
-        } else {
-            // Building is null, remove all the text.
+        } else
+
+        {
+            // Buildings is null, remove all the text.
 
             lName.setText("");
             lCity.setText("");
@@ -126,13 +132,10 @@ public class BuildingsAppController implements Initializable {
             laCity.setText("");
         }
 
-
     }
-
 
     public void setMain(BuildingsApp main) {
         this.main = main;
-
 
         buildingProxy.cityProperty().bindBidirectional(lCity.textProperty());
         buildingProxy.nameProperty().bindBidirectional(lName.textProperty());
@@ -152,8 +155,7 @@ public class BuildingsAppController implements Initializable {
         buildingProxy.rankProperty().bindBidirectional(lRank.textProperty());
         buildingProxy.costProperty().bindBidirectional(lCost.textProperty());
 
-        this.building = main.getBuilding();
-
+        this.buildings = main.getBuildings();
 
     }
 
@@ -161,9 +163,7 @@ public class BuildingsAppController implements Initializable {
         tvBuildings.setItems(buildingsData);
     }
 
-
-    @FXML
-    private void handleDeleteButton(ActionEvent event) {
+    @FXML private void handleDeleteButton(ActionEvent event) {
         int selectedIndex = tvBuildings.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             tvBuildings.getItems().remove(selectedIndex);
@@ -172,22 +172,22 @@ public class BuildingsAppController implements Initializable {
             Alert alert = new Alert(AlertType.WARNING);
             alert.initOwner(BuildingsApp.getPrimaryStage());
             alert.setTitle("No Selection");
-            alert.setHeaderText("No building Selected");
-            alert.setContentText("Please select a building in the table.");
+            alert.setHeaderText("No buildings Selected");
+            alert.setContentText("Please select a buildings in the table.");
 
             alert.showAndWait();
         }
 
     }
 
-
+    //TODO ccxxc
     public void handleSaveButton() {
-        try (BufferedWriter writer = Files.newBufferedWriter(getPath(FILE_NAME, true))) {
+        try (BufferedWriter writer = Files.newBufferedWriter(Utils.getPath(FILE_NAME, true))) {
             writer.write("#rank;name;city;country;heigth FT;Height m");
             writer.newLine();
-            buildingPM.stream().forEach(building -> {
+            buildings.buildingsData.stream().forEach(building -> {
                 try {
-                    writer.write(buildingPM.infoAsLine());
+                    //TODO writer.write(buildings.getRank()+buildings.getName()+buildings.getCity()+buildings.getCountry());
                     writer.newLine();
                 } catch (IOException e) {
                     throw new IllegalStateException(e);
@@ -198,22 +198,21 @@ public class BuildingsAppController implements Initializable {
         }
     }
 
-
-
-
-
-
-
-    @FXML
-    public void add(ActionEvent actionEvent) {
-        building.createnewBuilding();
+    @FXML public void add(ActionEvent actionEvent) {
+        buildings.createnewBuilding();
         tvBuildings.getSelectionModel().selectLast();
         tvBuildings.scrollTo(tvBuildings.getItems().size() - 1);
     }
 
+    private void setRanking(Buildings buildings) {
 
+        Collections.sort(buildings.buildingsData,
+                (o1, o2) -> (int) (Double.valueOf(o2.getHeightM()) - Double.valueOf(o1.getHeightM())));
 
+        for (int i = 0; i < buildings.buildingsData.size(); i++) {
+            buildings.buildingsData.get(i).setRank("" + (i + 1));
+        }
 
-
+    }
 
 }

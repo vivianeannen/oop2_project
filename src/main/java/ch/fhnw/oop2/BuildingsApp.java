@@ -3,28 +3,14 @@ package ch.fhnw.oop2;/**
  */
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import ch.fhnw.oop2.controller.BuildingsAppController;
-import ch.fhnw.oop2.model.Building;
-import ch.fhnw.oop2.model.BuildingPM;
+import ch.fhnw.oop2.model.Buildings;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -44,7 +30,7 @@ public class BuildingsApp extends Application {
 
 
 
-    private Building building;
+    private Buildings buildings;
 
 
 
@@ -53,7 +39,7 @@ public class BuildingsApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Buildings");
 
-        building = new Building(FILE_NAME);
+        buildings = new Buildings(FILE_NAME);
         initRootLayout();
 
         showBuildingsOverview();
@@ -99,7 +85,7 @@ public class BuildingsApp extends Application {
 
             // Give the controller access to the timetable.
             BuildingsAppController controller = loader.getController();
-            controller.setBuildings(building.getBuildingsData());
+            controller.setBuildings(buildings.getBuildingsData());
             controller.setMain(this);
 
         } catch (IOException e) {
@@ -123,8 +109,8 @@ public class BuildingsApp extends Application {
 
 
 
-    public Building getBuilding() {
-        return building;
+    public Buildings getBuildings() {
+        return buildings;
     }
 
 
