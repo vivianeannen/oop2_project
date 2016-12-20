@@ -36,7 +36,7 @@ public class Buildings {
 
     // new Buildings
     public void createnewBuilding() {
-        buildingsData.addAll(new BuildingPM("", "", "", "", "", "", "","","","","","","",""));
+        buildingsData.addAll(new BuildingPM("","", "", "", "", "", "", "","","","","","","",""));
 
     }
 

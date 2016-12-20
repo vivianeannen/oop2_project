@@ -2,21 +2,10 @@ package ch.fhnw.oop2.model;
 
 import javafx.beans.property.*;
 //import javafx.scene.shape.Path;
-import java.util.*;
-
-import java.io.*;
-import java.lang.reflect.Type;
-
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.*;
-import javafx.collections.ObservableList;
+
 import java.lang.*;
-import java.*;
-import java.awt.*;
-import javafx.scene.control.Label;
-
-
 
 // Alles muss String sein in einer Tabelle
 
@@ -25,7 +14,19 @@ import javafx.scene.control.Label;
  */
 public class BuildingPM {
 
+    public String getId() {
+        return id.get();
+    }
 
+    public StringProperty idProperty() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id.set(id);
+    }
+
+    private StringProperty id = new SimpleStringProperty();
     private StringProperty name = new SimpleStringProperty();
     private StringProperty city = new SimpleStringProperty();
     private StringProperty heightM = new SimpleStringProperty();
@@ -44,10 +45,11 @@ public class BuildingPM {
     public BuildingPM(){
     }
 
-    public BuildingPM(String name, String city, String heightM,
+    public BuildingPM(String id, String name, String city, String heightM,
                       String floors, String rank, String architect, String cost,
                       String longitude, String country, String heightFT, String build,
-                      String achitectualStyle, String material, String latitude) {
+                      String architectualStyle, String material, String latitude) {
+        this.id = new SimpleStringProperty(id);
         this.name = new SimpleStringProperty(name);
         this.city = new SimpleStringProperty(city);
         this.heightM = new SimpleStringProperty(heightM);
@@ -59,12 +61,13 @@ public class BuildingPM {
         this.country = new SimpleStringProperty(country);
         this.heightFT = new SimpleStringProperty(heightFT);
         this.build = new SimpleStringProperty(build);
-        this.architectualStyle = new SimpleStringProperty(achitectualStyle);
+        this.architectualStyle = new SimpleStringProperty(architectualStyle);
         this.material = new SimpleStringProperty(material);
         this.latitude = new SimpleStringProperty(latitude);
     }
 
     public BuildingPM(String[] line) {
+        this.setId(line[0]);
         this.setRank(line[1]);
         this.setName(line[2]);
         this.setCity(line[3]);
@@ -74,7 +77,7 @@ public class BuildingPM {
         this.setFloors(line[7]);
         this.setBuild(line[8]);
         this.setArchitect(line[9]);
-        this.setAchitectualStyle(line[10]);
+        this.setArchitectualStyle(line[10]);
         this.setCost(line[11]);
         this.setMaterial(line[12]);
         this.setLongitude(line[13]);
@@ -221,16 +224,16 @@ public class BuildingPM {
         this.build.set(build);
     }
 
-    public String getAchitectualStyle() {
+    public String getArchitectualStyle() {
         return architectualStyle.get();
     }
 
-    public StringProperty achitectualStyleProperty() {
+    public StringProperty architectualStyleProperty() {
         return architectualStyle;
     }
 
-    public void setAchitectualStyle(String achitectualStyle) {
-        this.architectualStyle.set(achitectualStyle);
+    public void setArchitectualStyle(String architectualStyle) {
+        this.architectualStyle.set(architectualStyle);
     }
 
     public String getMaterial() {

@@ -1,4 +1,6 @@
-package ch.fhnw.oop2;/**
+package ch.fhnw.oop2;
+
+/**
  * Created by Viviane on 26.11.2016.
  */
 
@@ -18,24 +20,17 @@ import javafx.stage.Stage;
 
 public class BuildingsApp extends Application {
 
-
     private static Stage primaryStage;
     private BorderPane rootLayout;
 
     //Separate klass
     public static final String FILE_NAME = "buildings.csv";
 
-
     private final StringProperty applicationTitle = new SimpleStringProperty("Buildings");
-
-
 
     private Buildings buildings;
 
-
-
-    @Override
-    public void start(Stage primaryStage) {
+    @Override public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Buildings");
 
@@ -45,7 +40,6 @@ public class BuildingsApp extends Application {
         showBuildingsOverview();
 
     }
-
 
     /**
      * Initializes the root layout.
@@ -79,10 +73,6 @@ public class BuildingsApp extends Application {
             // Set buildings overview into the center of root layout.
             rootLayout.setCenter(buildingsOverview);
 
-
-
-
-
             // Give the controller access to the timetable.
             BuildingsAppController controller = loader.getController();
             controller.setBuildings(buildings.getBuildingsData());
@@ -102,18 +92,12 @@ public class BuildingsApp extends Application {
         return primaryStage;
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }
 
-
-
     public Buildings getBuildings() {
         return buildings;
     }
-
-
-
 
 }
