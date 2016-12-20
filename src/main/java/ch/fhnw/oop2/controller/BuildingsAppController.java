@@ -4,19 +4,21 @@ import ch.fhnw.oop2.BuildingsApp;
 import ch.fhnw.oop2.model.Building;
 import ch.fhnw.oop2.model.BuildingPM;
 import ch.fhnw.oop2.model.BuildingProxy;
-import ch.fhnw.oop2.util.JavaFxUtils;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.FileChooser;
 
-
-import java.io.File;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ResourceBundle;
+
+
+import static ch.fhnw.oop2.BuildingsApp.FILE_NAME;
 
 /**
  * Created by norinasteiner on 01.12.16.
@@ -177,6 +179,28 @@ public class BuildingsAppController implements Initializable {
         }
 
     }
+
+
+    public void handleSaveButton() {
+        try (BufferedWriter writer = Files.newBufferedWriter(getPath(FILE_NAME, true))) {
+            writer.write("#rank;name;city;country;heigth FT;Height m");
+            writer.newLine();
+            buildingPM.stream().forEach(building -> {
+                try {
+                    writer.write(buildingPM.infoAsLine());
+                    writer.newLine();
+                } catch (IOException e) {
+                    throw new IllegalStateException(e);
+                }
+            });
+        } catch (IOException e) {
+            throw new IllegalStateException("saving failed!");
+        }
+    }
+
+
+
+
 
 
 

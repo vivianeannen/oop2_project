@@ -21,7 +21,7 @@
       <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefWidth="345.0" BorderPane.alignment="CENTER">
          <buttons>
             <Button mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete" />
-            <Button mnemonicParsing="false" onAction="#add" text="Button" />
+            <Button mnemonicParsing="false" onAction="#handleSaveButton" text="Save" />
          </buttons>
          <BorderPane.margin>
             <Insets />

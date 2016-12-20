@@ -37,7 +37,7 @@ public class BuildingsApp extends Application {
     private BorderPane rootLayout;
 
     //Separate klass
-    private static final String FILE_NAME = "buildings.csv";
+    public static final String FILE_NAME = "buildings.csv";
 
 
     private final StringProperty applicationTitle = new SimpleStringProperty("Buildings");
