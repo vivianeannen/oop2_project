@@ -14,18 +14,6 @@ import java.lang.*;
  */
 public class BuildingPM {
 
-    public String getId() {
-        return id.get();
-    }
-
-    public StringProperty idProperty() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id.set(id);
-    }
-
     private StringProperty id = new SimpleStringProperty();
     private StringProperty name = new SimpleStringProperty();
     private StringProperty city = new SimpleStringProperty();
@@ -42,13 +30,12 @@ public class BuildingPM {
     private StringProperty material = new SimpleStringProperty();
     private StringProperty latitude = new SimpleStringProperty();
 
-    public BuildingPM(){
+    public BuildingPM() {
     }
 
-    public BuildingPM(String id, String name, String city, String heightM,
-                      String floors, String rank, String architect, String cost,
-                      String longitude, String country, String heightFT, String build,
-                      String architectualStyle, String material, String latitude) {
+    public BuildingPM(String id, String name, String city, String heightM, String floors, String rank, String architect,
+            String cost, String longitude, String country, String heightFT, String build, String architectualStyle,
+            String material, String latitude) {
         this.id = new SimpleStringProperty(id);
         this.name = new SimpleStringProperty(name);
         this.city = new SimpleStringProperty(city);
@@ -85,12 +72,17 @@ public class BuildingPM {
 
     }
 
+    public String getId() {
+        return id.get();
+    }
 
+    public StringProperty idProperty() {
+        return id;
+    }
 
-
-
-
-
+    public void setId(String id) {
+        this.id.set(id);
+    }
 
     public String getName() {
         return name.get();

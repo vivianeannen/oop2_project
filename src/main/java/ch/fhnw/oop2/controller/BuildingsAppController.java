@@ -180,36 +180,31 @@ public class BuildingsAppController implements Initializable {
 
     }
 
-
     public void handleSaveButton() {
-       try (BufferedWriter writer = Files.newBufferedWriter(Utils.getPath(FILE_NAME, true))) {
+        try (BufferedWriter writer = Files.newBufferedWriter(Utils.getPath(FILE_NAME, true))) {
             writer.write(
-                    "rank;name;city;country;heightM;heightFT;floors;build;architect;architectual;cost;material;longitude;latitude");
+                    "id;rank;name;city;country;heightM;heightFT;floors;build;architect;architectual;cost;material;longitude;latitude");
             writer.newLine();
             buildings.buildingsData.stream().forEach(o1 -> {
                 try {
-                    writer.write(
-                            o1.getId() +";" +
-                            o1.getRank() +";"+ o1.getName() +";"+ o1.getCity() +";"+ o1.getCountry()+";"
-                                    + o1.getHeightM()+";" + o1.getHeightFT()+";" + o1.getFloors()+";"
-                                    + o1.getBuild()+";" + o1.getArchitect()+";" + o1
-                                    .getArchitectualStyle()+";" + o1.getCost()+";" + o1.getMaterial()+";"
-                                    + o1.getLongitude()+";" + o1.getLatitude());
+                    writer.write(o1.getId() + ";" + o1.getRank() + ";" + o1.getName() + ";" + o1.getCity() + ";" + o1
+                            .getCountry() + ";" + o1.getHeightM() + ";" + o1.getHeightFT() + ";" + o1.getFloors() + ";"
+                            + o1.getBuild() + ";" + o1.getArchitect() + ";" + o1.getArchitectualStyle() + ";" + o1
+                            .getCost() + ";" + o1.getMaterial() + ";" + o1.getLongitude() + ";" + o1.getLatitude());
                     writer.newLine();
                 } catch (IOException e) {
                     throw new IllegalStateException(e);
-                } catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
             });
-           writer.flush();
-           writer.close();
+            writer.flush();
+            writer.close();
         } catch (IOException e) {
             throw new IllegalStateException("saving failed!");
         }
 
     }
-
 
     @FXML public void add(ActionEvent actionEvent) {
         buildings.createnewBuilding();
