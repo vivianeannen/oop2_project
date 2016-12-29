@@ -182,10 +182,17 @@ public class BuildingsAppController implements Initializable {
 
 
     public void handleNewButton(){
-        String[]newLine = {" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "};
-        BuildingPM newBuilding = new BuildingPM(newLine);
-        //buildings.add(newBuilding);
-        //setSelectedBuilding(newBuilding);
+//        String[]newLine = {" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "};
+//        BuildingPM newBuilding = new BuildingPM(newLine);
+//        buildings.addAll(newBuilding);
+//        setSelectedBuilding(newBuilding);
+        buildings.createnewBuilding();
+        tvBuildings.getSelectionModel().selectLast();
+        tvBuildings.scrollTo(tvBuildings.getItems().size() - 1);
+
+//
+//        tvDepartureTable.getSelectionModel().selectLast();
+//        tvDepartureTable.scrollTo(tvDepartureTable.getItems().size() - 1);
 
 
     }
