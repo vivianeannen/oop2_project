@@ -180,6 +180,16 @@ public class BuildingsAppController implements Initializable {
 
     }
 
+
+    public void handleNewButton(){
+        String[]newLine = {" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "};
+        BuildingPM newBuilding = new BuildingPM(newLine);
+        //buildings.add(newBuilding);
+        //setSelectedBuilding(newBuilding);
+
+
+    }
+
     public void handleSaveButton() {
         try (BufferedWriter writer = Files.newBufferedWriter(Utils.getPath(FILE_NAME, true))) {
             writer.write(
