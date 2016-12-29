@@ -8,12 +8,12 @@ import javafx.beans.property.Property;
  * Created by norinasteiner on 29.12.16.
  */
 public class ValueChangeCommand<T> implements Command {
-    private final BuildingPM building;
+    private final BuildingsAppController building;
     private final Property<T> property;
     private final T           oldValue;
     private final T           newValue;
 
-    public ValueChangeCommand(BuildingPM building, Property<T> property, T oldValue, T newValue) {
+    public ValueChangeCommand(BuildingsAppController building, Property<T> property, T oldValue, T newValue) {
         this.building = building;
         this.property = property;
         this.oldValue = oldValue;

@@ -44,7 +44,7 @@ public class BuildingsAppController implements Initializable {
     private final ObservableList<Command> redoStack = FXCollections.observableArrayList();
     private final ChangeListener propertyChangeListenerForUndoSupport = (observable, oldValue, newValue) -> {
         redoStack.clear();
-        undoStack.add(0, new ValueChangeCommand(BuildingPM.this, (Property) observable, oldValue, newValue));
+        undoStack.add(0, new ValueChangeCommand(BuildingsAppController.this, (Property) observable, oldValue, newValue));
     };
 
 
@@ -271,9 +271,10 @@ public class BuildingsAppController implements Initializable {
 //    }
 
     private void setRanking(Buildings buildings) {
-
-        Collections.sort(buildings.buildingsData,
-                (o1, o2) -> (int) (Double.valueOf(o2.getHeightM()) - Double.valueOf(o1.getHeightM())));
+        buildings.buildingsData.stream().filter(data -> data.getHeightM() != "").
+                sorted((o1, o2) -> (int) (Double.valueOf(o2.getHeightM()) - Double.valueOf(o1.getHeightM())));
+/*        Collections.sort(buildings.buildingsData,
+                (o1, o2) -> (int) (Double.valueOf(o2.getHeightM()) - Double.valueOf(o1.getHeightM())));*/
 
         for (int i = 0; i < buildings.buildingsData.size(); i++) {
             buildings.buildingsData.get(i).setRank("" + (i + 1));
