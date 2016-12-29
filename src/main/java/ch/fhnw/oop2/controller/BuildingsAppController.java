@@ -6,6 +6,9 @@ import ch.fhnw.oop2.model.BuildingPM;
 import ch.fhnw.oop2.model.BuildingProxy;
 import ch.fhnw.oop2.util.JavaFxUtils;
 import ch.fhnw.oop2.util.Utils;
+import javafx.beans.property.Property;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,9 +20,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.ResourceBundle;
 
 import static ch.fhnw.oop2.BuildingsApp.FILE_NAME;
@@ -37,7 +38,18 @@ public class BuildingsAppController implements Initializable {
     private BuildingProxy buildingProxy = new BuildingProxy();
     private Buildings buildings;
 
-    //@FXML
+
+    //UNDO REDO
+    private final ObservableList<Command> undoStack = FXCollections.observableArrayList();
+    private final ObservableList<Command> redoStack = FXCollections.observableArrayList();
+    private final ChangeListener propertyChangeListenerForUndoSupport = (observable, oldValue, newValue) -> {
+        redoStack.clear();
+        undoStack.add(0, new ValueChangeCommand(BuildingPM.this, (Property) observable, oldValue, newValue));
+    };
+
+
+
+
 
     @FXML public TableView<BuildingPM> tvBuildings;
 
@@ -180,7 +192,7 @@ public class BuildingsAppController implements Initializable {
 
     }
 
-
+@FXML
     public void handleNewButton(){
 //        String[]newLine = {" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "};
 //        BuildingPM newBuilding = new BuildingPM(newLine);
@@ -197,6 +209,7 @@ public class BuildingsAppController implements Initializable {
 
     }
 
+    @FXML
     public void handleSaveButton() {
         try (BufferedWriter writer = Files.newBufferedWriter(Utils.getPath(FILE_NAME, true))) {
             writer.write(
@@ -223,11 +236,39 @@ public class BuildingsAppController implements Initializable {
 
     }
 
-    @FXML public void add(ActionEvent actionEvent) {
-        buildings.createnewBuilding();
-        tvBuildings.getSelectionModel().selectLast();
-        tvBuildings.scrollTo(tvBuildings.getItems().size() - 1);
+    @FXML
+    public void handleUndoButton() {
+        if (undoStack.isEmpty()) {
+            return;
+        }
+        Command cmd = undoStack.get(0);
+        undoStack.remove(0);
+        redoStack.add(0, cmd);
+
+        cmd.undo();
     }
+
+    @FXML
+    public void handleRedoButton() {
+        if (redoStack.isEmpty()) {
+            return;
+        }
+        Command cmd = redoStack.get(0);
+        redoStack.remove(0);
+        undoStack.add(0, cmd);
+
+        cmd.redo();
+    }
+
+
+
+    //doppelt??
+
+//    @FXML public void add(ActionEvent actionEvent) {
+//        buildings.createnewBuilding();
+//        tvBuildings.getSelectionModel().selectLast();
+//        tvBuildings.scrollTo(tvBuildings.getItems().size() - 1);
+//    }
 
     private void setRanking(Buildings buildings) {
 
@@ -239,5 +280,15 @@ public class BuildingsAppController implements Initializable {
         }
 
     }
+
+
+    //UNDO REDO
+
+    public <T> void setPropertyValueWithoutUndoSupport(Property<T> property, T newValue){
+        property.removeListener(propertyChangeListenerForUndoSupport);
+        property.setValue(newValue);
+        property.addListener(propertyChangeListenerForUndoSupport);
+    }
+
 
 }

@@ -1,9 +1,15 @@
 package ch.fhnw.oop2.model;
 
+import ch.fhnw.oop2.controller.Command;
+import ch.fhnw.oop2.controller.ValueChangeCommand;
 import javafx.beans.property.*;
 //import javafx.scene.shape.Path;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 
 import java.lang.*;
 
@@ -71,6 +77,13 @@ public class BuildingPM {
         this.setLatitude(line[14]);
 
     }
+
+
+
+
+
+
+
 
     public String getId() {
         return id.get();
@@ -251,5 +264,15 @@ public class BuildingPM {
     public void setLatitude(String latitude) {
         this.latitude.set(latitude);
     }
+
+
+
+
+
+
+
+
+
+
 }
 
