@@ -20,7 +20,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.util.Collections;
 import java.util.ResourceBundle;
 
 import static ch.fhnw.oop2.BuildingsApp.FILE_NAME;

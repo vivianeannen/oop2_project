@@ -1,7 +1,5 @@
 package ch.fhnw.oop2.controller;
 
-import ch.fhnw.oop2.controller.Command;
-import ch.fhnw.oop2.model.BuildingPM;
 import javafx.beans.property.Property;
 
 /**
