@@ -76,7 +76,7 @@ public class Utils {
         try {
             return new File(BuildingsApp.class.getResource("/" + fileName).toURI());
         } catch (URISyntaxException e) {
-            throw new IllegalArgumentException("File: " + fileName + " not found."); 
+            throw new IllegalArgumentException("File: " + fileName + " not found.");
         }
     }
 

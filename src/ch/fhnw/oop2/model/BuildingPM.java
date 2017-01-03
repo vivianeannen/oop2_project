@@ -1,13 +1,13 @@
 package ch.fhnw.oop2.model;
 
+import ch.fhnw.oop2.controller.ValueChangeCommand;
 import javafx.beans.property.*;
 //import javafx.scene.shape.Path;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 
 import java.lang.*;
-
-// Alles muss String sein in einer Tabelle
 
 /**
  * Created by norinasteiner on 26.11.16.
@@ -30,12 +30,29 @@ public class BuildingPM {
     private StringProperty material = new SimpleStringProperty();
     private StringProperty latitude = new SimpleStringProperty();
 
-    public BuildingPM() {
-    }
+    /**
+     * Constructor
+     *
+     * @param id
+     * @param name
+     * @param city
+     * @param heightM
+     * @param floors
+     * @param rank
+     * @param architect
+     * @param cost
+     * @param longitude
+     * @param country
+     * @param heightFT
+     * @param build
+     * @param architectualStyle
+     * @param material
+     * @param latitude
+     */
 
     public BuildingPM(String id, String name, String city, String heightM, String floors, String rank, String architect,
             String cost, String longitude, String country, String heightFT, String build, String architectualStyle,
-            String material, String latitude) {
+            String material, String latitude, ChangeListener undoChangeListener) {
         this.id = new SimpleStringProperty(id);
         this.name = new SimpleStringProperty(name);
         this.city = new SimpleStringProperty(city);
@@ -51,8 +68,35 @@ public class BuildingPM {
         this.architectualStyle = new SimpleStringProperty(architectualStyle);
         this.material = new SimpleStringProperty(material);
         this.latitude = new SimpleStringProperty(latitude);
+
+        //each change will be pushed unto the undo stack
+        addListeners(undoChangeListener);
+
     }
 
+    private void addListeners(ChangeListener undoChangeListener) {
+        this.id.addListener(undoChangeListener);
+        this.name.addListener(undoChangeListener);
+        this.city.addListener(undoChangeListener);
+        this.heightM.addListener(undoChangeListener);
+        this.floors.addListener(undoChangeListener);
+        this.rank.addListener(undoChangeListener);
+        this.architect.addListener(undoChangeListener);
+        this.cost.addListener(undoChangeListener);
+        this.longitude.addListener(undoChangeListener);
+        this.country.addListener(undoChangeListener);
+        this.heightFT.addListener(undoChangeListener);
+        this.build.addListener(undoChangeListener);
+        this.architectualStyle.addListener(undoChangeListener);
+        this.material.addListener(undoChangeListener);
+        this.latitude.addListener(undoChangeListener);
+    }
+
+    /**
+     * Assigning values from csv file to attributes
+     *
+     * @param line
+     */
     public BuildingPM(String[] line) {
         this.setId(line[0]);
         this.setRank(line[1]);
@@ -72,12 +116,15 @@ public class BuildingPM {
 
     }
 
+    /**
+     * default constructor
+     */
+    public BuildingPM() {
+    }
 
-
-
-
-
-
+    /**
+     * Getter and Setter
+     */
 
     public String getId() {
         return id.get();
@@ -258,15 +305,6 @@ public class BuildingPM {
     public void setLatitude(String latitude) {
         this.latitude.set(latitude);
     }
-
-
-
-
-
-
-
-
-
 
 }
 

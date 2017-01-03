@@ -1,5 +1,6 @@
 package ch.fhnw.oop2.model;
 
+import ch.fhnw.oop2.controller.UndoRedoHandler;
 import ch.fhnw.oop2.util.Utils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,7 +9,6 @@ import javafx.collections.ObservableList;
  * Created by norinasteiner on 17.12.16.
  */
 public class Buildings {
-
     public ObservableList<BuildingPM> buildingsData = FXCollections.observableArrayList();
 
 
@@ -20,8 +20,6 @@ public class Buildings {
         }
     }
 
-
-
     public ObservableList<BuildingPM> getBuildingsData(){
         return buildingsData;
     }
@@ -29,7 +27,8 @@ public class Buildings {
 
     // new Buildings
     public void createnewBuilding() {
-        buildingsData.addAll(new BuildingPM("","", "", "", "", "", "", "","","","","","","",""));
+        buildingsData.addAll(new BuildingPM("","", "", "0.0", "", "", "", "","0.0","","0.0","","","0.0","0.0",
+                UndoRedoHandler.getInstance().getPropertyChangeListenerForUndoSupport()));
 
     }
 

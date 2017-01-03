@@ -16,7 +16,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -37,21 +39,7 @@ public class BuildingsAppController implements Initializable {
     private BuildingProxy buildingProxy = new BuildingProxy();
     private Buildings buildings;
 
-
-    //UNDO REDO
-    private final ObservableList<Command> undoStack = FXCollections.observableArrayList();
-    private final ObservableList<Command> redoStack = FXCollections.observableArrayList();
-    private final ChangeListener propertyChangeListenerForUndoSupport = (observable, oldValue, newValue) -> {
-        redoStack.clear();
-        undoStack.add(0, new ValueChangeCommand(BuildingsAppController.this, (Property) observable, oldValue, newValue));
-    };
-
-
-
-
-
     @FXML public TableView<BuildingPM> tvBuildings;
-
     @FXML public TableColumn<BuildingPM, String> tcName;
     @FXML public TableColumn<BuildingPM, String> tcCity;
     @FXML public TableColumn<BuildingPM, String> tcRank;
@@ -73,7 +61,25 @@ public class BuildingsAppController implements Initializable {
     @FXML public Label laCity;
     @FXML public Label laHeightm;
 
-    //***initialize***
+    private static BuildingsAppController singleton;
+
+    public static BuildingsAppController getInstance() {
+        if (singleton == null) {
+            singleton = new BuildingsAppController();
+        }
+        return singleton;
+    }
+
+    private BuildingsAppController() {
+        //private for singleton
+    }
+
+    /**
+     * initialize
+     *
+     * @param location
+     * @param resources
+     */
 
     @Override public void initialize(URL location, ResourceBundle resources) {
         tcName.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -113,7 +119,11 @@ public class BuildingsAppController implements Initializable {
 
     static boolean edited = false;
 
-    //***methods***
+    /**
+     * methods
+     *
+     * @param building
+     */
     private void showBuildingDetails(BuildingPM building) {
         if (building != null)
 
@@ -174,6 +184,11 @@ public class BuildingsAppController implements Initializable {
         tvBuildings.setItems(buildingsData);
     }
 
+    /**
+     * Event Handling
+     *
+     * @param event
+     */
     @FXML private void handleDeleteButton(ActionEvent event) {
         int selectedIndex = tvBuildings.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
@@ -191,26 +206,19 @@ public class BuildingsAppController implements Initializable {
 
     }
 
-@FXML
-    public void handleNewButton(){
-//        String[]newLine = {" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "};
-//        BuildingPM newBuilding = new BuildingPM(newLine);
-//        buildings.addAll(newBuilding);
-//        setSelectedBuilding(newBuilding);
+    @FXML public void handleNewButton() {
+        //        String[]newLine = {" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "};
+        //        BuildingPM newBuilding = new BuildingPM(newLine);
+        //        buildings.addAll(newBuilding);
+        //        setSelectedBuilding(newBuilding);
         buildings.createnewBuilding();
         tvBuildings.getSelectionModel().selectLast();
         tvBuildings.scrollTo(tvBuildings.getItems().size() - 1);
 
-//
-//        tvDepartureTable.getSelectionModel().selectLast();
-//        tvDepartureTable.scrollTo(tvDepartureTable.getItems().size() - 1);
-
-
     }
 
-    @FXML
-    public void handleSaveButton() {
-        try (BufferedWriter writer = Files.newBufferedWriter(Utils.getPath(FILE_NAME, true))) {
+    @FXML public void handleSaveButton() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Utils.loadFile(FILE_NAME)))) {
             writer.write(
                     "id;rank;name;city;country;heightM;heightFT;floors;build;architect;architectual;cost;material;longitude;latitude");
             writer.newLine();
@@ -235,39 +243,21 @@ public class BuildingsAppController implements Initializable {
 
     }
 
-    @FXML
-    public void handleUndoButton() {
-        if (undoStack.isEmpty()) {
-            return;
-        }
-        Command cmd = undoStack.get(0);
-        undoStack.remove(0);
-        redoStack.add(0, cmd);
-
-        cmd.undo();
+    @FXML public void handleUndoButton() {
+        UndoRedoHandler.getInstance().undo();
     }
 
-    @FXML
-    public void handleRedoButton() {
-        if (redoStack.isEmpty()) {
-            return;
-        }
-        Command cmd = redoStack.get(0);
-        redoStack.remove(0);
-        undoStack.add(0, cmd);
-
-        cmd.redo();
+    @FXML public void handleRedoButton() {
+        UndoRedoHandler.getInstance().redo();
     }
-
-
 
     //doppelt??
 
-//    @FXML public void add(ActionEvent actionEvent) {
-//        buildings.createnewBuilding();
-//        tvBuildings.getSelectionModel().selectLast();
-//        tvBuildings.scrollTo(tvBuildings.getItems().size() - 1);
-//    }
+    //    @FXML public void add(ActionEvent actionEvent) {
+    //        buildings.createnewBuilding();
+    //        tvBuildings.getSelectionModel().selectLast();
+    //        tvBuildings.scrollTo(tvBuildings.getItems().size() - 1);
+    //    }
 
     private void setRanking(Buildings buildings) {
         buildings.buildingsData.stream().filter(data -> data.getHeightM() != "").
@@ -280,15 +270,5 @@ public class BuildingsAppController implements Initializable {
         }
 
     }
-
-
-    //UNDO REDO
-
-    public <T> void setPropertyValueWithoutUndoSupport(Property<T> property, T newValue){
-        property.removeListener(propertyChangeListenerForUndoSupport);
-        property.setValue(newValue);
-        property.addListener(propertyChangeListenerForUndoSupport);
-    }
-
 
 }

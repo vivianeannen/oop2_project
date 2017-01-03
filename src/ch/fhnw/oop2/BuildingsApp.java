@@ -23,7 +23,7 @@ public class BuildingsApp extends Application {
     private static Stage primaryStage;
     private BorderPane rootLayout;
 
-    //Separate klass
+    //Separate class
     public static final String FILE_NAME = "buildings.csv";
 
     private final StringProperty applicationTitle = new SimpleStringProperty("Buildings");
@@ -68,13 +68,14 @@ public class BuildingsApp extends Application {
             // Load buildings overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(BuildingsApp.class.getResource("view/BuildingsOverview.fxml"));
+            loader.setController(BuildingsAppController.getInstance());
             BorderPane buildingsOverview = (BorderPane) loader.load();
 
             // Set buildings overview into the center of root layout.
             rootLayout.setCenter(buildingsOverview);
 
             // Give the controller access to the timetable.
-            BuildingsAppController controller = loader.getController();
+            BuildingsAppController controller = BuildingsAppController.getInstance();
             controller.setBuildings(buildings.getBuildingsData());
             controller.setMain(this);
 
