@@ -5,6 +5,7 @@ package ch.fhnw.oop2.util;
  */
 
 import ch.fhnw.oop2.BuildingsApp;
+import ch.fhnw.oop2.controller.UndoRedoHandler;
 import ch.fhnw.oop2.model.BuildingPM;
 import javafx.scene.control.Alert;
 
@@ -68,7 +69,8 @@ public class Utils {
      */
     public static List<BuildingPM> readFromFile(String filename) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(loadFile(filename)))) {
-            return br.lines().skip(1).map(s -> new BuildingPM(s.split(";"))).collect(Collectors.toList());
+            return br.lines().skip(1).map(s -> new BuildingPM(s.split(";"),
+                    UndoRedoHandler.getInstance().getPropertyChangeListenerForUndoSupport())).collect(Collectors.toList());
         }
     }
 

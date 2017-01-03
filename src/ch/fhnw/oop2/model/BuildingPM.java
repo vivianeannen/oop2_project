@@ -97,7 +97,7 @@ public class BuildingPM {
      *
      * @param line
      */
-    public BuildingPM(String[] line) {
+    public BuildingPM(String[] line, ChangeListener undoChangeListener) {
         this.setId(line[0]);
         this.setRank(line[1]);
         this.setName(line[2]);
@@ -114,6 +114,7 @@ public class BuildingPM {
         this.setLongitude(line[13]);
         this.setLatitude(line[14]);
 
+        addListeners(undoChangeListener);
     }
 
     /**
