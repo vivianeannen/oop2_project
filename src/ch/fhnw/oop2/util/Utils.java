@@ -6,10 +6,9 @@ package ch.fhnw.oop2.util;
 
 import ch.fhnw.oop2.BuildingsApp;
 import ch.fhnw.oop2.model.BuildingPM;
+import javafx.scene.control.Alert;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.UncheckedIOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -62,17 +61,22 @@ public class Utils {
         return csvString.toString();
     }
 
-    public static List<BuildingPM> readFromFile(String filename) {
-        try (Stream<String> stream = getStreamOfLines(filename, true)) {
-            return stream.skip(1).map(s -> new BuildingPM(s.split(";"))).collect(Collectors.toList());
+    /**
+     * loading and reading CSV File
+     * @param filename
+     * @return Buildings in CSV file as list
+     */
+    public static List<BuildingPM> readFromFile(String filename) throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader(loadFile(filename)))) {
+            return br.lines().skip(1).map(s -> new BuildingPM(s.split(";"))).collect(Collectors.toList());
         }
     }
 
-    public static Stream<String> getStreamOfLines(String fileName, boolean locatedInSameFolder) {
+    public static File loadFile(String fileName) {
         try {
-            return Files.lines(getPath(fileName, locatedInSameFolder), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
+            return new File(BuildingsApp.class.getResource("/" + fileName).toURI());
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException("File: " + fileName + " not found."); 
         }
     }
 
@@ -87,6 +91,16 @@ public class Utils {
         }
     }
 
+    public static void printErrorMessage(Exception ex){
+        Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+        alert.showAndWait();
+    }
+
+    /**
+     * Conversion Meter - Feet
+     * @param foot
+     * @return
+     */
     public static double footToMeter(double foot){
         return foot * 0.3048;
     }

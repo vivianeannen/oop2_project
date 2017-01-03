@@ -13,7 +13,11 @@ public class Buildings {
 
 
     public Buildings(String list){
-        buildingsData.setAll(Utils.readFromFile(list));
+        try {
+            buildingsData.setAll(Utils.readFromFile(list));
+        } catch (Exception e) {
+            Utils.printErrorMessage(e);
+        }
     }
 
 
