@@ -13,7 +13,8 @@
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <top>
       <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefWidth="345.0" BorderPane.alignment="CENTER">
-         <buttons>
+         <!-- controller set in fxml loader-->
+          <buttons>
             <Button mnemonicParsing="false" onAction="#handleRedoButton" text="Redo" />
             <Button mnemonicParsing="false" onAction="#handleUndoButton" text="Undo" />
             <Button mnemonicParsing="false" onAction="#handleSaveButton" text="Save" />

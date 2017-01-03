@@ -68,13 +68,14 @@ public class BuildingsApp extends Application {
             // Load buildings overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(BuildingsApp.class.getResource("view/BuildingsOverview.fxml"));
+            //defined external controller
             loader.setController(BuildingsAppController.getInstance());
             BorderPane buildingsOverview = (BorderPane) loader.load();
 
             // Set buildings overview into the center of root layout.
             rootLayout.setCenter(buildingsOverview);
 
-            // Give the controller access to the timetable.
+            // Give the controller access.
             BuildingsAppController controller = BuildingsAppController.getInstance();
             controller.setBuildings(buildings.getBuildingsData());
             controller.setMain(this);
