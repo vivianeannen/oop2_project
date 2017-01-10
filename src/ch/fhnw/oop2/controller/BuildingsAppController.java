@@ -10,6 +10,7 @@ import javafx.beans.property.Property;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -56,6 +57,7 @@ public class BuildingsAppController implements Initializable {
     @FXML public TextField lArchitectual;
     @FXML public TextField lMaterial;
     @FXML public TextField lLatitude;
+    @FXML public TextField lFilter;
     @FXML public Label lRank;
     @FXML public Label laName;
     @FXML public Label laCity;
@@ -181,7 +183,28 @@ public class BuildingsAppController implements Initializable {
     }
 
     public void setBuildings(ObservableList<BuildingPM> buildingsData) {
-        tvBuildings.setItems(buildingsData);
+        FilteredList<BuildingPM> filteredData = new FilteredList<>(buildingsData, p -> true);
+        lFilter.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(building -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                return building.getName().toLowerCase().contains(lowerCaseFilter) || building.getCity().toLowerCase()
+                        .contains(lowerCaseFilter) || building.getRank().toLowerCase().contains(lowerCaseFilter)
+                        || building.getHeightM().toLowerCase().contains(lowerCaseFilter) || building.getHeightFT()
+                        .toLowerCase().contains(lowerCaseFilter) || building.getCost().toLowerCase()
+                        .contains(lowerCaseFilter) || building.getCountry().toLowerCase().contains(lowerCaseFilter)
+                        || building.getLongitude().toLowerCase().contains(lowerCaseFilter) || building.getLatitude()
+                        .toLowerCase().contains(lowerCaseFilter) || building.getBuild().toLowerCase()
+                        .contains(lowerCaseFilter) || building.getArchitect().toLowerCase().contains(lowerCaseFilter)
+                        || building.getArchitectualStyle().toLowerCase().contains(lowerCaseFilter) || building
+                        .getMaterial().toLowerCase().contains(lowerCaseFilter);
+
+            });
+        });
+
+        tvBuildings.setItems(filteredData);
     }
 
     /**
