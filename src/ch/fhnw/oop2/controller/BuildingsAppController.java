@@ -127,11 +127,8 @@ public class BuildingsAppController implements Initializable {
      * @param building
      */
     private void showBuildingDetails(BuildingPM building) {
-        if (building != null)
-
-        {
-            buildingProxy.set(building);
-        } else
+        buildingProxy.set(building);
+        if (building == null)
 
         {
             // Buildings is null, remove all the text.
