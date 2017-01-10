@@ -3,7 +3,7 @@
 }
 
 .text-field {
-    -fx-background-color: whitesmoke;
+    -fx-background-color: lightgray;
     -fx-font-size: 10pt;
     -fx-font-family: "sans-serif";
     -fx-text-fill: black;
