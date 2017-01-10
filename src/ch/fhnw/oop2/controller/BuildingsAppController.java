@@ -215,7 +215,7 @@ public class BuildingsAppController implements Initializable {
     @FXML private void handleDeleteButton(ActionEvent event) {
         int selectedIndex = tvBuildings.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
-            tvBuildings.getItems().remove(selectedIndex);
+            buildings.buildingsData.remove(selectedIndex);
         } else {
             // Nothing selected.
             Alert alert = new Alert(AlertType.WARNING);
