@@ -5,101 +5,110 @@ package ch.fhnw.oop2;
  */
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import ch.fhnw.oop2.controller.BuildingsAppController;
 import ch.fhnw.oop2.model.Buildings;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.Button;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 // main
 
 public class BuildingsApp extends Application {
 
-    private static Stage primaryStage;
-    private BorderPane rootLayout;
+	private static Stage stage;
+	private BorderPane rootLayout;
 
-    //Separate class
-    public static final String FILE_NAME = "buildings.csv";
+	//Separate class
+	public static final String FILE_NAME = "buildings.csv";
 
-    private final StringProperty applicationTitle = new SimpleStringProperty("Buildings");
+	private final StringProperty applicationTitle = new SimpleStringProperty("Buildings");
 
-    private Buildings buildings;
+	private Buildings buildings;
 
-    @Override public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Buildings");
+	@Override
+	public void start(Stage primaryStage) {
+		this.stage = primaryStage;
+		this.stage.setTitle("Buildings");
 
-        buildings = new Buildings(FILE_NAME);
-        initRootLayout();
+		buildings = new Buildings(FILE_NAME);
 
-        showBuildingsOverview();
+		Button btnEN = new Button();
+		btnEN.setText("English");
+		btnEN.setOnAction((event) -> {
+					loadView(new Locale("en", "EN"));
+				}
+		);
 
-    }
+		Button btnDE = new Button();
+		btnDE.setText("Deutsch");
+		btnDE.setOnAction((event) -> {
+					loadView(new Locale("de", "DE"));
+				}
+		);
 
-    /**
-     * Initializes the root layout.
-     */
-    public void initRootLayout() {
-        try {
-            // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(BuildingsApp.class.getResource("view/RootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
+		VBox root = new VBox(20);
+		root.getChildren().add(HBoxBuilder.create().spacing(5).style("-fx-background-color: white").padding(new Insets(5)).children(btnEN, btnDE).build());
+		root.getChildren().add(new StackPane());
+		primaryStage.setScene(new Scene(root, 800, 500));
+		primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+		primaryStage.show();
 
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+		//showBuildingsOverview();
 
-    /**
-     * Shows the person overview inside the root layout.
-     */
-    public void showBuildingsOverview() {
-        try {
-            // Load buildings overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(BuildingsApp.class.getResource("view/BuildingsOverview.fxml"));
-            //defined external controller
-            loader.setController(BuildingsAppController.getInstance());
-            BorderPane buildingsOverview = (BorderPane) loader.load();
+	}
 
-            // Set buildings overview into the center of root layout.
-            rootLayout.setCenter(buildingsOverview);
+	/**
+	 * Initializes the root layout.
+	 */
+	public void loadView(Locale locale) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader();
+			//Load locale file
+			fxmlLoader.setResources(ResourceBundle.getBundle("Bundle", locale));
+			// Load root layout from fxml file.
 
-            // Give the controller access.
-            BuildingsAppController controller = BuildingsAppController.getInstance();
-            controller.setBuildings(buildings.getBuildingsData());
-            controller.setMain(this);
+			Pane pane = (BorderPane) fxmlLoader.load(this.getClass().getResource("view/BuildingsOverview.fxml").openStream());
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+			// replace the content
+			StackPane content = (StackPane) ((VBox) stage.getScene().getRoot()).getChildren().get(1);
+			content.getChildren().clear();
+			content.getChildren().add(pane);
 
-    /**
-     * Returns the main stage.
-     *
-     * @return
-     */
-    public static Stage getPrimaryStage() {
-        return primaryStage;
-    }
+			// Give the controller access.
+			BuildingsAppController controller = fxmlLoader.getController();
+			controller.setBuildings(buildings.getBuildingsData());
+			controller.setMain(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+	/**
+	 * Returns the main stage.
+	 *
+	 * @return
+	 */
+	public static Stage getPrimaryStage() {
+		return stage;
+	}
 
-    public Buildings getBuildings() {
-        return buildings;
-    }
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+	public Buildings getBuildings() {
+		return buildings;
+	}
 
 }
