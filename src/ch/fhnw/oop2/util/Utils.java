@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -108,6 +109,16 @@ public class Utils {
     }
 
     public static double meterToFoot(double meter){
-        return meter / 0.3048;
+        //return meter / 0.3048;
+        return meterRounded(meter/0.3048);
     }
+
+
+    public static double meterRounded(double d) {
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+        return Double.valueOf(twoDForm.format(d));
+    }
+
+
+
 }
