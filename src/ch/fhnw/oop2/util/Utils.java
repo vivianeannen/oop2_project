@@ -22,8 +22,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 /**
- * Created by ernst on 26.04.2016.
+ * The Class JavaFxUtils.
+ * @author Viviane Annen, Norina Steiner, Matthias Ernst
  */
 
 public class Utils {

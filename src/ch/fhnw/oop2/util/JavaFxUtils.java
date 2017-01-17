@@ -21,7 +21,7 @@ import java.util.Optional;
 
 /**
  * The Class JavaFxUtils.
- * @author Matthias Ernst
+ * @author Viviane Annen, Norina Steiner, Matthias Ernst
  */
 public class JavaFxUtils {
 
