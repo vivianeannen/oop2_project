@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 public class BuildingsApp extends Application {
 
 	private static Stage stage;
-	private BorderPane rootLayout;
+
 
 	//Separate class
 	public static final String FILE_NAME = "buildings.csv";
